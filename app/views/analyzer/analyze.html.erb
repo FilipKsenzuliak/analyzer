@@ -1,0 +1,68 @@
+<!-- <div id="image"></div> -->
+  
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">LogMeKnow</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Analyzer</a></li>
+      <li><a href="#">Log in</a></li>
+      <li><a href="#">Patterns</a></li>
+      <li><a href="#">Parsers</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="layout">
+
+	<%= render 'search' %>
+
+	<div id="parts">		
+			<div class="table-responsive">
+		  <table class="table">
+		    <thead>
+		      <tr>
+		        <th>Attribute</th>
+		        <th>Value</th>
+            <th>Regex</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		    	<% @log_parts.each do |part| %>
+			      <tr>
+			        <td id="attribute">
+                <div class="input-group">
+                  <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand">
+                  <div class="input-group-btn">
+                    <a class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" href="#">
+                      <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <li><a href="#">Edit</a></li>
+                      <li><a href="#">Delete</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Save</a></li>
+                    </div>
+                  </div>
+                </div>
+              </td>
+			        <td id="value"><%= part %></td>
+              <td id="regex"><input type="text" class="form-control" id="expand"></td>
+			      </tr>
+		      <% end %>
+		    </tbody>
+		  </table>
+		  </div>
+
+      <div id="divider"></div>
+
+      <div class="form-group">
+        <%= text_field_tag :log, "final regex", class: "form-control"%>
+        <%= submit_tag "Export", class: "btn btn-default btn-lg", id: "log-submit"%>
+      </div>
+	</div>
+
+  
+
+</div>
