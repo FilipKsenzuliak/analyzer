@@ -1,7 +1,7 @@
 <%= form_tag("/analyze", method: "get") do %>
 	<div class="form-group">
-	  <%= label_tag(:log, "Log to be analyzed:") %>
-	  <%= text_field_tag :log, @text, class: "form-control"%>
+	  <%= label_tag(:log, "Log to be analyzed: [test sample: 2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1 ]") %>
+	  <%= text_field_tag :log, @log_text, class: "form-control"%>
 	  <%= submit_tag "Analyze", class: "btn btn-default btn-lg", id: "log-submit"%>
 	  <div class="dropdown">
 	    <button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Format in

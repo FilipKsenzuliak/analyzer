@@ -8,7 +8,31 @@
 </head>
 <body>
 
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">LogMeKnow</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <% if current_user %>
+        <li><a href="/analyze">Log management</a></li>
+        <li><a href="#">Event management</a></li>
+        <li><a href="#">Patterns</a></li>
+        <li><a href="#">Parsers</a></li>
+        <li><a href="/logout">Log out</a></li>
+      <% else %>
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/signup">Sign up</a></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<div id="layout">
+
 <%= yield %>
+
+</div>
 
 </body>
 </html>

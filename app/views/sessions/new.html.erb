@@ -1,0 +1,15 @@
+<div id="login-layout">
+
+<h1>Login</h1>
+
+<%= form_tag '/login' do %>
+	<div class="form-group">
+		<%= label_tag(:email, "Email:") %>
+	  <%= text_field_tag :email, "", class: "form-control" %>
+	  <%= label_tag(:password, "Password:") %>
+	  <%= password_field_tag :password, "", class: "form-control" %>
+	  <%= submit_tag "Submit", class: "btn btn-default btn-lg", id: "login" %>
+	</div>
+<% end %>
+
+</div>
