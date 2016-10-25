@@ -1,4 +1,5 @@
 class LogsController < ApplicationController
+  require 'grok-pure'
   before_action :set_log, only: [:show, :edit, :update, :destroy]
 
   # GET /logs
@@ -59,6 +60,13 @@ class LogsController < ApplicationController
       format.html { redirect_to logs_url, notice: 'Log was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def patterns
+    grok = Grok.new
+    grok.add_patterns_from_file("#{Rails.root}/public/patterns/base")
+
+    @patterns = grok.patterns
   end
 
   private

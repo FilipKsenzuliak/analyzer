@@ -27,9 +27,6 @@ class AnalyzerController < ApplicationController
 
 			patterns.each do |name, expression|
 				grok.compile(expression)
-				# puts "Input: #{input}"
-				# puts "Pattern: #{pattern}"
-				# puts "Full: #{grok.expanded_pattern}"
 				match = grok.match(@log_text)
 
 				if match
