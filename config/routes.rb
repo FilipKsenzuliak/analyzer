@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :users
   
   get "/analyze" => "analyzer#analyze"
+  get "analyzer/group"
 
   root "sessions#new"
 
@@ -17,8 +18,8 @@ Rails.application.routes.draw do
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
 
-  # patterns
-  get '/patterns' => 'logs#patterns'
+  # parsers
+  get '/parsers' => 'logs#parsers'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

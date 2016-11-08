@@ -2,3 +2,71 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#attribute {
+	width: 20%;
+	vertical-align: middle;
+}
+
+#value {
+	width: 30%;
+	padding-top: 15px;
+	font-size: 150%;
+	vertical-align: middle;
+}
+
+#regex {
+	max-width: 50%;
+}
+
+#text-regex {
+	resize: vertical;
+}
+
+#check {
+	width: 1%;
+	vertical-align: middle;
+}
+
+input[type="checkbox"]{
+  width: 20px;
+  height: 20px;
+}
+
+.group {
+	margin-top: -15px;
+}
+
+.pattern {
+	margin: -15px 0 0 10px;
+}
+
+#blue {
+	background-color: #5cb85c;
+}
+
+#logp {
+	height: 50px;
+	font-size: 130%;
+}
+
+#options {
+	position: relative;
+}
+
+#arrow {
+	position: absolute;
+	width: 100px;
+	height: 200px;
+  left: -120px;
+  top: -175px;
+	background-image: url(arrow.png);
+}
+
+#p-arrow {
+	position: absolute;
+	width: 85px;
+	height: 70px;
+	top: -15px;
+	left: 330px;
+	background-image: url(p-arrow.png);
+}

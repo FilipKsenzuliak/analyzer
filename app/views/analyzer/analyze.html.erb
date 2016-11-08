@@ -4,10 +4,11 @@
 <%= render 'search' %>
 
 <div id="parts">		
-		<div class="table-responsive">
+		<div>
 	  <table class="table">
 	    <thead>
 	      <tr>
+          <th></th>
 	        <th>Attribute</th>
 	        <th>Value</th>
           <th>Regex</th>
@@ -16,6 +17,7 @@
 	    <tbody>
 	    	<% @log_data.each do |value| %>
 		      <tr>
+            <td id="check"><input type="checkbox" class="group" name="newsletter" value="<%= value[1] %>"/></td>
 		        <td id="attribute">
               <div class="input-group">
                 <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value=<%= value[0] %>>
@@ -33,7 +35,12 @@
               </div>
             </td>
 		        <td id="value"><%= value[1] %></td>
-            <td id="regex"><input type="text" class="form-control" id="expand" value=<%= value[3] %> ></td>
+            <!--<td id="regex"><input type="text" class="form-control" id="expand" value=<%= value[3] %> ></td>-->
+            <% unless value[3] == '' %>
+              <td id="regex"><textarea class="form-control" id="text-regex" readonly> <%= value[3] %> </textarea></td>
+            <% else %>
+              <td id="regex"><textarea class="form-control" id="text-regex" readonly> No regular expression available </textarea></td>
+            <% end %>
 		      </tr>
 	      <% end %>
 	    </tbody>
@@ -42,10 +49,18 @@
 
     <div id="divider"></div>
 
-    <div class="form-group">
-      <%= label_tag(:log, "Pattern: order isn't checked yet!!!") %>
-      <%= text_field_tag :log, @pattern, class: "form-control"%>
-      <%= submit_tag "Export", class: "btn btn-default btn-lg", id: "log-submit"%>
+    <div id="options">
+      <input type="button" onclick="group()" class="btn btn-default btn-lg group" value="group elements"/>
+      <input type="button" onclick="pat()" class="btn btn-default btn-lg pattern" value="create pattern"/>
+
+      <div id="arrow" style="display:none;"></div>
+      <div id="p-arrow" style="display:none"></div>
+    </div>
+
+    <div class="form-group output-pattern" style="display:none;">
+      <%= label_tag(:logp, "Pattern:") %>
+      <%= text_field_tag :logp, @pattern, class: "form-control"%>
+      <%= submit_tag "Save", class: "btn btn-default btn-lg", id: "log-submit"%>
     </div>
 </div>
 

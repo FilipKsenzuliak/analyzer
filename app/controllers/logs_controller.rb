@@ -62,7 +62,7 @@ class LogsController < ApplicationController
     end
   end
 
-  def patterns
+  def parsers
     grok = Grok.new
     grok.add_patterns_from_file("#{Rails.root}/public/patterns/base")
 
