@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   get 'sessions/new'
   get 'users/new'
 
+  resources :patterns
   resources :logs
   resources :users
   
+  get "/start" => "analyzer#index"
   get "/analyze" => "analyzer#analyze"
   get "analyzer/group"
 
@@ -21,6 +23,10 @@ Rails.application.routes.draw do
   # parsers
   get '/parsers' => 'logs#parsers'
 
+  # patterns
+  get '/patterns' => 'patterns#index'
+  post '/patterns' => 'patterns#create'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -3,48 +3,57 @@
 <% if current_user %>
 <%= render 'search' %>
 
-<div id="parts">		
-		<div>
-	  <table class="table">
-	    <thead>
-	      <tr>
-          <th></th>
-	        <th>Attribute</th>
-	        <th>Value</th>
-          <th>Regex</th>
-	      </tr>
-	    </thead>
-	    <tbody>
-	    	<% @log_data.each do |value| %>
-		      <tr>
-            <td id="check"><input type="checkbox" class="group" name="newsletter" value="<%= value[1] %>"/></td>
-		        <td id="attribute">
-              <div class="input-group">
-                <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value=<%= value[0] %>>
-                <div class="input-group-btn">
-                  <a class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" href="#">
-                    <span class="caret"></span>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <li><a href="#">Edit</a></li>
-                    <li><a href="#">Delete</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Save</a></li>
+<div id="parts">
+  <div id="s-arrow"></div>
+  <div class="form-group" id="suggestion">
+    <label> Suggestions: </label>
+    <select class="form-control" id="sug-select">
+      <option><%= @suggestion %></option>
+    </select>
+  </div>	
+
+		<div id="table">
+    <div id="divider"></div>
+  	  <table class="table">
+  	    <thead>
+  	      <tr>
+            <th></th>
+  	        <th>Attribute</th>
+  	        <th>Value</th>
+            <th>Regex</th>
+  	      </tr>
+  	    </thead>
+  	    <tbody>
+  	    	<% @log_data.each do |value| %>
+  		      <tr>
+              <td id="check"><input type="checkbox" class="group" name="newsletter" value="<%= value[1] %>"/></td>
+  		        <td id="attribute">
+                <div class="input-group">
+                  <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value=<%= value[0] %>>
+                  <div class="input-group-btn">
+                    <a class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" href="#">
+                      <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <li><a href="#">Edit</a></li>
+                      <li><a href="#">Delete</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Save</a></li>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </td>
-		        <td id="value"><%= value[1] %></td>
-            <!--<td id="regex"><input type="text" class="form-control" id="expand" value=<%= value[3] %> ></td>-->
-            <% unless value[3] == '' %>
-              <td id="regex"><textarea class="form-control" id="text-regex" readonly> <%= value[3] %> </textarea></td>
-            <% else %>
-              <td id="regex"><textarea class="form-control" id="text-regex" readonly> No regular expression available </textarea></td>
-            <% end %>
-		      </tr>
-	      <% end %>
-	    </tbody>
-	  </table>
+              </td>
+  		        <td id="value"><%= value[1] %></td>
+              <!--<td id="regex"><input type="text" class="form-control" id="expand" value=<%= value[3] %> ></td>-->
+              <% unless value[3] == '' %>
+                <td id="regex"><textarea class="form-control" id="text-regex" readonly> <%= value[3] %> </textarea></td>
+              <% else %>
+                <td id="regex"><textarea class="form-control" id="text-regex" readonly> No regular expression available </textarea></td>
+              <% end %>
+  		      </tr>
+  	      <% end %>
+  	    </tbody>
+  	  </table>
 	  </div>
 
     <div id="divider"></div>
@@ -57,11 +66,17 @@
       <div id="p-arrow" style="display:none"></div>
     </div>
 
-    <div class="form-group output-pattern" style="display:none;">
-      <%= label_tag(:logp, "Pattern:") %>
-      <%= text_field_tag :logp, @pattern, class: "form-control"%>
-      <%= submit_tag "Save", class: "btn btn-default btn-lg", id: "log-submit"%>
-    </div>
+    <%= form_for @pattern, url: '/patterns' do |f| %>
+      <div class="form-group output-pattern">
+        <%= f.label(:text, "Pattern:") %>
+        <%= f.text_field :text, class: "form-control"%>
+        <%= f.submit "Save", class: "btn btn-default btn-lg", id: "log-submit"%>
+      </div>
+    <% end %>
+
+    
+ 
+
 </div>
 
 <% else %>

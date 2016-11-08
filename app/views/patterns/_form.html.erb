@@ -1,0 +1,6 @@
+<%= form_for :pattern, url: '/patterns' do |f| %>
+  <div class="form-group">
+    <%= f.text_field :text, class: "form-control"%>
+    <%= f.submit "Save", class: "btn btn-default btn-lg", id: "pattern-create" %>
+  </div>
+<% end %>

@@ -8,6 +8,7 @@ class AnalyzerController < ApplicationController
   
   # OSETRIT AK SA V LOGU VYSKYTUJE VIAC KRAT TO ISTE SLOVO TAK JEHO POZICIU
   # KED TEXT OBSAHUJE LEN ZNAKY ALEBO CISLA TAK JE TO PRAVDEPODOBNE NIC => MOZEM ZGRUPNUT
+  # OSETRIT DUPLIKATY VO VZOROCH
   def index
   end
 
@@ -28,9 +29,9 @@ class AnalyzerController < ApplicationController
 
   # action taken after analyzing log
   def analyze
+    @pattern = Pattern.new
     @log_text = format(params[:log])
     @log_data = []
-    @pattern = ''
     unmatched_text = @log_text.clone
 
     grok = Grok.new
@@ -49,41 +50,24 @@ class AnalyzerController < ApplicationController
 
     # sort by start_at_index
     @log_data.sort_by! {|data| data[2]}
+
+    @suggestion = suggest_pattern(@log_data.map{|item| item[0]}.join(":"))
     
-    # @pattern = @log_data.map{|item| item[0]}.join(":")
   end # def analyze
 
-  # def suggest_pattern(parsed_pattern)
-  #   # ??? SOURCE --> BUDEM POZNAT SOURCE . patterny rozdelene podla sourcu
-  #   # FIREWALL .. patterns
-  #   # SYSLOG .... patterns
-  #   # APP ....... patterns
-
-  #   <IP><UK><UK><TIMESTAMP>
-
-  #   0. <NIECO><USER><TIMESTAMP>
-  #   1. <IP><USER><TIMESTAMP>
-  #   2. <IP><USER><UID><TIMESTAMP>  # vacsia priorita pretoze kazde UK = nejakej entite
-
-  #   <IP><UK><UK><TIMESTAMP><UK><UK><UK>
-
-  #   1. <IP><USER><TIMESTAMP><MSG>
-  #   2. <IP><USER><TIMESTAMP><PID><MSG>
-
-  #   01/20/2016 06:15:05.85 w3wp.exe (0x5154) 03194 SharePoint Foundation Micro Trace Tags: (none) 20fa569d-e927-7055-3239-2cc8d3f9a2b7
-  #   TIMESTAMP                PROGRAM   PID     IDD             MSG                                        NUM
-  #   TIMESTAMP                PROGRAM   CISLO   CISLO   UK        UK         UK   UK    UK     UK          ...
-  #   suggests = []
-  #   patterns = Pattern.all
-
-  #   tb_matched = parsed_pattern.split('::')
-  #   patterns.each do |pattern|
-  #     tokens = pattern.split('::')
-
-
-  #   end
-
-  # end
+  # pattern recognition
+  def suggest_pattern(parsed_pattern)
+    suggestion = ''
+    min = 1
+    Pattern.all.each do |pattern|
+      cmp_min = Levenshtein.normalized_distance pattern.text.to_s, parsed_pattern.to_s
+      if cmp_min < min
+        suggestion = pattern.text.to_s
+        min = cmp_min
+      end
+    end
+    suggestion
+  end # def suggest_pattern
 
   # format entry log of whitespaces
   def format(log)
