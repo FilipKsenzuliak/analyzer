@@ -1,0 +1,16 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Expression</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @groups.each do |name, expression| %>
+      <tr>
+        <td id="name"><%= name %></td>
+        <td id="expression"><%= expression %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,6 +1,7 @@
 class LogsController < ApplicationController
   require 'grok-pure'
   before_action :set_log, only: [:show, :edit, :update, :destroy]
+  respond_to :json, :html, :js
 
   # GET /logs
   # GET /logs.json
@@ -62,11 +63,35 @@ class LogsController < ApplicationController
     end
   end
 
+  def tokens
+    @patterns = {cus: 'jano'}
+    p '***************************' + params[:send_id].to_s + 'ppaaa'
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def groups
+    @patterns = {cus: 'jano'}
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def parsers
     grok = Grok.new
     grok.add_patterns_from_file("#{Rails.root}/public/patterns/base")
 
-    @patterns = grok.patterns
+    @tokens = {}
+    @groups = {}
+
+    grok.patterns.each do |name, expression|
+      if expression.match(/%{.*}/)
+        @groups[name] = expression
+      else
+        @tokens[name] = expression
+      end
+    end
   end
 
   private

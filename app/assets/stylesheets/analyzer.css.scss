@@ -95,19 +95,15 @@ input[type="checkbox"]{
 }
 
 #suggestion {
-	margin: 10px 0 0 0px;
-	display: -webkit-flex;
-  display: flex;
 }
 
 #sug-select {
-	flex-basis: 80%;
+	display: inline-block;
+	width: 92%;
 	height: 50px;
-	float: left;
-	margin-right: auto;
+	font-size: 130%;
 }
 
 #suggestion label {
-	padding-top: 15px;
-	flex-basis: 8%;
+	display: inline-block;
 }

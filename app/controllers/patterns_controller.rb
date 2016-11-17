@@ -42,7 +42,7 @@ class PatternsController < ApplicationController
   def update
     respond_to do |format|
       if @pattern.update(pattern_params)
-        format.html { redirect_to @pattern, notice: 'Pattern was successfully updated.' }
+        format.html { redirect_to '/patterns', notice: 'Pattern was successfully updated.' }
         format.json { render :show, status: :ok, location: @pattern }
       else
         format.html { render :edit }

@@ -1,6 +1,7 @@
 <!-- <div id="image"></div> -->
 
 <% if current_user %>
+
 <%= render 'search' %>
 
 <div id="parts">
@@ -24,12 +25,12 @@
   	      </tr>
   	    </thead>
   	    <tbody>
-  	    	<% @log_data.each do |value| %>
+  	    	<% @log_data.each do |data| %>
   		      <tr>
-              <td id="check"><input type="checkbox" class="group" name="newsletter" value="<%= value[1] %>"/></td>
+              <td id="check"><input type="checkbox" class="group" name="newsletter" value="<%= data[:match] %>"/></td>
   		        <td id="attribute">
                 <div class="input-group">
-                  <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value=<%= value[0] %>>
+                  <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value=<%= data[:match][:name] %>>
                   <div class="input-group-btn">
                     <a class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" href="#">
                       <span class="caret"></span>
@@ -43,10 +44,9 @@
                   </div>
                 </div>
               </td>
-  		        <td id="value"><%= value[1] %></td>
-              <!--<td id="regex"><input type="text" class="form-control" id="expand" value=<%= value[3] %> ></td>-->
-              <% unless value[3] == '' %>
-                <td id="regex"><textarea class="form-control" id="text-regex" readonly> <%= value[3] %> </textarea></td>
+  		        <td id="value"><%= data[:match][:matched_text] %></td>
+              <% unless data[:pattern] == '' %>
+                <td id="regex"><textarea class="form-control" id="text-regex" readonly> <%= data[:pattern] %> </textarea></td>
               <% else %>
                 <td id="regex"><textarea class="form-control" id="text-regex" readonly> No regular expression available </textarea></td>
               <% end %>

@@ -1,7 +1,16 @@
 <%= form_tag("/analyze", method: "get") do %>
 	<div class="form-group">
-	  <%= label_tag(:log, "Log to be analyzed: [test sample: 2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1 ]") %>
-	  <%= text_field_tag :log, @log_text, class: "form-control"%>
-	  <%= submit_tag "Analyze", class: "btn btn-default btn-lg", id: "log-submit"%>
+		<div id="analyze">
+		  <%= label_tag(:log, "Log to be analyzed: [test sample: 2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1 ]") %>
+		  <%= text_field_tag :log, @log_text, class: "form-control"%>
+		</div>
+		<div id="separate">
+		  <%= label_tag(:separator, "Split on:") %>
+			<%= select_tag(:separator, options_for_select([['(space)', ' '], ['|', '|'], ['/', '/']], selected: params[:separator] ), class: "form-control") %>
+		</div>
+		<% #if @hide == '' %>
+	  	<%= submit_tag "Analyze", class: "btn btn-default btn-lg", id: "log-submit" %>
+	  <% #end %>
 	</div>
 <% end %>
+

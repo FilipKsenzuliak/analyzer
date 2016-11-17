@@ -6,6 +6,7 @@ gem 'jls-grok'
 # gem for computing levensteihn distance
 gem 'levenshtein', '~> 0.2.2'
 
+gem 'responders'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use postgresql as the database for Active Record
