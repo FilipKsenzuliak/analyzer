@@ -107,3 +107,11 @@ input[type="checkbox"]{
 #suggestion label {
 	display: inline-block;
 }
+
+tr.sub {
+	display: none;
+}
+
+.highlight { 
+	background-color: red; 
+}

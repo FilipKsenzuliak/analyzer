@@ -51,4 +51,9 @@ $(document).on 'ready page:load', ->
 $(document).on 'ready page:load', ->
   $('#s-arrow').fadeIn(1000)
 
+$(document).on 'ready page:load', ->
+  $(".table tr").on "click", ->
+    className = $(this).attr('class').split(' ')[0]
+    
+
 

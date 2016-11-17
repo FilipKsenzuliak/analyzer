@@ -78,6 +78,8 @@ SYSLOGFACILITY <%{POSINT:facility}.%{POSINT:priority}>
 HTTPDATE %{MONTHDAY}/%{MONTH}/%{YEAR}:%{TIME} %{INT:ZONE}
 
 # Custom
-MESSAGE (?:%{WORD}\s?)+
 PID (?:\b\w+\[[0-9]+\]:)
-RFC111 %{DATESTAMP} %{WORD} %{PID} %{IP} %{MESSAGE} %{IP}
+MESSAGE (?:%{WORD})+
+RFC111 %{DATESTAMP} %{WORD} %{PID} %{IP} %{IP}
+DST dst=%{IP}
+SRC src=%{IP}

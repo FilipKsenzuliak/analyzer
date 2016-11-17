@@ -1,0 +1,32 @@
+<% if data.size != 0 || data != nil %>
+  <% data.each do |d| %>
+    <tr class="<%= d[:name].to_s + ' ' + class_name.to_s %> sub">
+      <td id="check"><input type="checkbox" class="group" name="newsletter" value="<%= d[:matched_text] %>"/></td>
+      <td id="attribute">
+        <div class="input-group">
+          <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value=<%= d[:name] %>>
+          <div class="input-group-btn">
+            <a class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="caret"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <li><a href="#">Edit</a></li>
+              <li><a href="#">Delete</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Save</a></li>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td id="value"><%= d[:matched_text][0] %></td>
+      <% unless d[:pattern] == '' %>
+        <td id="regex"><textarea class="form-control" id="text-regex" readonly> <%= d[:pattern] %> </textarea></td>
+      <% else %>
+        <td id="regex"><textarea class="form-control" id="text-regex" readonly> No regular expression available </textarea></td>
+      <% end %>
+    </tr>
+    <% if d[:sub].size != 0 %>
+      <%= render :partial => 'element', locals: { data: d[:sub], class_name: d[:name]} %>
+    <% end %>
+  <% end %>
+<% end %>

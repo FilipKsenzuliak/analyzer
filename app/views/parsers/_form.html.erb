@@ -1,0 +1,13 @@
+<%= form_for(@parser) do |f| %>
+	<div class="form-group">
+		<%= label_tag(:name, "Name:") %>
+	  <%= f.text_field :name, class: "form-control" %>
+	  <%= label_tag(:expression, "Expression:") %>
+	  <%= f.text_area :expression, class: "form-control" %>
+	  <%= label_tag(:blacklist, "Blacklist:") %>
+	  <%= f.check_box :blacklist, class: "form-control" %>
+	  <%= label_tag(:source_group, "Source group:") %>
+	  <%= f.text_field :source_group, class: "form-control" %>
+	  <%= f.submit "Submit", class: "btn btn-default btn-lg", id: "add-pattern" %>
+	</div>
+<% end %>

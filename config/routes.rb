@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :patterns
   resources :logs
   resources :users
+  resources :parsers
   
   get "/start" => "analyzer#index"
   get "/analyze" => "analyzer#analyze"
@@ -21,8 +22,7 @@ Rails.application.routes.draw do
   post '/users' => 'users#create'
 
   # parsers
-  get '/parsers' => 'logs#parsers'
-  get '/tokens' => 'logs#tokens'
+  get '/parsers' => 'parsers#index'
 
   # patterns
   get '/patterns' => 'patterns#index'

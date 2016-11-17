@@ -28,42 +28,49 @@ class AnalyzerController < ApplicationController
   def analyze
     @pattern = Pattern.new
     @log_text = format(params[:log])
-    @log_separator = params[:separator]
+    log_separator = params[:separator]
     @hide = 'hide'
     @log_data = []
     unmatched_text = @log_text.clone
 
-    redirect_to '/start', notice: 'Empty log' if @log_text == '' 
+    redirect_to '/start', notice: 'Enter the log to be analyzed' if @log_text == '' 
 
     grok = Grok.new
-    grok.add_patterns_from_file("#{Rails.root}/public/patterns/base2")
+    patterns = Parser.all
+    patterns.each do |p|
+      grok.add_pattern(p.name, p.expression)
+    end
+    # grok.add_patterns_from_file("#{Rails.root}/public/patterns/base2")
 
     new_text = @log_text.clone
     
     @log_data = discover(@log_text, grok)
-    pp @log_data
     # remove matched data from text
     @log_data.map do |data|
-      replace = "*" * data[:match][:name].length
-      new_text.sub!(data[:match][:name], replace)
-      unmatched_text.sub!(data[:match][:name], ' ')
+      text = data[:match][:matched_text].first
+      replace = "*" * text.length
+      new_text.sub!(text, replace)
+      unmatched_text.sub!(text, ' ')
     end
     
-
     # mark unknown data
-    unmatched_text.split(' ').each do |data|
-      @log_data << {
-                    match: {name: '<UNKNOWN>', matched_text: data, sub: []},
-                    start_at: new_text.index(data),
-                    pattern: ''
-                   }
-      replace = "*" * data.length
-      new_text.sub!(data, replace)
+    log_separator = ' ' if log_separator == '(space)'
+    unmatched_text.split(log_separator).each do |d|
+      format(d).split(' ').each do |data|
+        @log_data << {
+                      match: {name: '<UNKNOWN>', matched_text: [data], sub: []},
+                      start_at: new_text.index(data),
+                      pattern: ''
+                     }
+        replace = "*" * data.length
+        new_text.sub!(data, replace)
+      end
     end
 
+    pp @log_data
     @log_data.sort_by! {|data| data[:start_at]}
     @suggestion = suggest_pattern(@log_data.map{|item| item[:name]}.join(":"))
-    
+
   end # def analyze
 
   # pattern recognition
@@ -153,33 +160,33 @@ class AnalyzerController < ApplicationController
     score += expression.length # the length of the pattern
   end # def 
 
-# returns hash of expanded pattern names and values
-# limit - maximum number of recursive iterations
-def expand_pattern(pattern, grok, captures, limit)
-  pattern.gsub!(/[{}%]/,'')
-  match_data = {}
+  # returns hash of expanded pattern names and values
+  # limit - maximum number of recursive iterations
+  def expand_pattern(pattern, grok, captures, limit)
+    pattern.gsub!(/[{}%]/,'')
+    match_data = {}
 
-  if grok.patterns.include?(pattern) && limit >= 0
-    regex = grok.patterns[pattern]
-    # match all sub-patterns
-    matches = regex.scan(/%{\w+}/)
+    if grok.patterns.include?(pattern) && limit >= 0
+      regex = grok.patterns[pattern]
+      # match all sub-patterns
+      matches = regex.scan(/%{\w+}/)
 
-    matched_text = captures[pattern]
-    data = []
-    matches.each do |item|
-      data << expand_pattern(item, grok, captures, limit-1)
+      matched_text = captures[pattern]
+      data = []
+      matches.each do |item|
+        data << expand_pattern(item, grok, captures, limit-1)
+      end
+
+      match_data = {
+                    name: pattern,
+                    matched_text: matched_text,
+                    pattern: grok.expanded_pattern,
+                    sub: data
+                   }
+
+      return match_data
+    else
+      return nil
     end
-
-    match_data = {
-                  name: pattern,
-                  matched_text: matched_text,
-                  sub: data
-                 }
-
-    return match_data
-  else
-    return nil
-  end
-end # def expand_pattern
-
+  end # def expand_pattern
 end

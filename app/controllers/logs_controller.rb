@@ -64,15 +64,14 @@ class LogsController < ApplicationController
   end
 
   def tokens
-    @patterns = {cus: 'jano'}
-    p '***************************' + params[:send_id].to_s + 'ppaaa'
+    @patterns = {}
     respond_to do |format|
       format.js
     end
   end
 
   def groups
-    @patterns = {cus: 'jano'}
+    @patterns = {}
     respond_to do |format|
       format.js
     end

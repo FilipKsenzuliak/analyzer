@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<div class="form-group" id="log-patterns">
+  <select class="form-control parsers" id="sel1">
+    <option>Tokens</option>
+    <option>Groups</option>
+  </select>
+
+  <%= button_to 'New parser', new_parser_path, class: "btn btn-primary parser", :method => :get %>
+</div>
+
+<div class="table">
+	<div id='tokens'>
+	  <%= render 'tokens' %>
+	</div>
+	<div id='groups' style='display:none'>
+	  <%= render 'groups' %>
+	</div>
+</div>
