@@ -3,7 +3,6 @@ class AnalyzerController < ApplicationController
   require 'grok-pure'
   require 'pp'
 
-  # example log: 2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1
   # example log: 01/20/2016 06:15:05.85 w3wp.exe (0x5154) 03194 SharePoint Foundation Micro Trace uls4 Medium Micro Trace Tags: (none) 20fa569d-e927-7055-3239-2cc8d3f9a2b7 
   
   def index
