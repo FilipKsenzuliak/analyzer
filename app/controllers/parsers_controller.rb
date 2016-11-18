@@ -3,8 +3,11 @@ class ParsersController < ApplicationController
   respond_to :json, :html, :js
 
 	def index
-		@parser = Parser.new
-		@parsers = Parser.all
+		if params[:search]
+      @parsers = Parser.search(params[:search]) 
+    else
+      @parsers = Parser.all
+    end
 
     @tokens = []
     @groups = []
@@ -19,7 +22,6 @@ class ParsersController < ApplicationController
 
     @groups.sort_by! {|item| item.name.downcase}
     @tokens.sort_by! {|item| item.name.downcase}
-
   end
 
   # GET /parsers/new
@@ -71,9 +73,25 @@ class ParsersController < ApplicationController
     end
   end
 
+  def export
+    parsers = {}
+    Parser.all.each do |parser|
+      parsers[parser.name] = {
+                              expression: parser.expression,
+                              blacklist: parser.blacklist,
+                              source_group: parser.source_group
+                             }
+    end
+    data = JSON.pretty_generate(parsers)
+
+    file = "parsers.json"
+    File.open(file, "w"){ |f| f << data }
+    send_file( file )
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def parser_params
       params.require(:parser).permit(:name, :expression, :blacklist, :source_group)
-    end  
+    end 
 end

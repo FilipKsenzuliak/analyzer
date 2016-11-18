@@ -1,14 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<div class="form-group" id="log-patterns">
-  <select class="form-control parsers" id="sel1">
+<div class="form-group activity" id="log-patterns">
+  <select class="form-control parsers left" id="sel1">
     <option>Tokens</option>
     <option>Groups</option>
   </select>
 
-  <%= button_to 'New parser', new_parser_path, class: "btn btn-primary parser", :method => :get %>
-</div>
+  <%= button_to 'New parser', new_parser_path, class: "btn btn-primary left", :method => :get %>
 
+	<%= form_tag("/parsers", method: "get") do %>
+		<div id="search-input">
+		  <%= text_field_tag :search, params[:search], class: "form-control left" %>
+		</div>
+	  <%= submit_tag "Search", class: "btn btn-default left", id: "search-submit" %>
+	<% end %>
+
+	<%= button_to 'Export', '/export_parsers', class: "btn btn-primary right", :method => :get %>
+</div>
+ 
 <div class="table">
 	<div id='tokens'>
 	  <%= render 'tokens' %>

@@ -1,0 +1,317 @@
+{
+  "SYSLOGFACILITY": {
+    "expression": "<%{POSINT:facility}.%{POSINT:priority}>",
+    "blacklist": false,
+    "source_group": "syslog"
+  },
+  "SYSLOGHOST": {
+    "expression": "%{IPORHOST}",
+    "blacklist": false,
+    "source_group": "syslog"
+  },
+  "SYSLOGPROG": {
+    "expression": "%{PROG:program}(?:\\[%{POSINT:pid}\\])?",
+    "blacklist": false,
+    "source_group": "syslog"
+  },
+  "SYSLOGTIMESTAMP": {
+    "expression": "%{MONTH} +%{MONTHDAY} %{TIME}",
+    "blacklist": false,
+    "source_group": "syslog"
+  },
+  "UNIXPATH": {
+    "expression": "(?:/(?:[\\w_%!$@:.,-]+|\\\\.)*)+",
+    "blacklist": false,
+    "source_group": "unix"
+  },
+  "WINDOWSMAC": {
+    "expression": "(?:(?:[A-Fa-f0-9]{2}-){5}[A-Fa-f0-9]{2})",
+    "blacklist": false,
+    "source_group": "windows"
+  },
+  "WINPATH": {
+    "expression": "(?:[A-Za-z]+:|\\\\)(?:\\\\[^\\\\?*]*)+",
+    "blacklist": false,
+    "source_group": "windows"
+  },
+  "USERNAME": {
+    "expression": "[a-zA-Z0-9_-]+",
+    "blacklist": false,
+    "source_group": null
+  },
+  "USER": {
+    "expression": "%{USERNAME}",
+    "blacklist": false,
+    "source_group": null
+  },
+  "INT": {
+    "expression": "(?:[+-]?(?:[0-9]+))",
+    "blacklist": false,
+    "source_group": null
+  },
+  "BASE10NUM": {
+    "expression": "(?<![0-9.+-])(?>[+-]?(?:(?:[0-9]+(?:\\.[0-9]+)?)|(?:\\.[0-9]+)))",
+    "blacklist": false,
+    "source_group": null
+  },
+  "NUMBER": {
+    "expression": "(?:%{BASE10NUM})",
+    "blacklist": false,
+    "source_group": null
+  },
+  "BASE16NUM": {
+    "expression": "(?<![0-9A-Fa-f])(?:[+-]?(?:0x)?(?:[0-9A-Fa-f]+))",
+    "blacklist": false,
+    "source_group": null
+  },
+  "BASE16FLOAT": {
+    "expression": "\\b(?<![0-9A-Fa-f.])(?:[+-]?(?:0x)?(?:(?:[0-9A-Fa-f]+(?:\\.[0-9A-Fa-f]*)?)|(?:\\.[0-9A-Fa-f]+)))\\b",
+    "blacklist": false,
+    "source_group": null
+  },
+  "POSINT": {
+    "expression": "\\b(?:[0-9]+)\\b",
+    "blacklist": false,
+    "source_group": null
+  },
+  "WORD": {
+    "expression": "\\b\\w+\\b",
+    "blacklist": false,
+    "source_group": null
+  },
+  "NOTSPACE": {
+    "expression": "\\S+",
+    "blacklist": false,
+    "source_group": null
+  },
+  "DATA": {
+    "expression": ".*?",
+    "blacklist": false,
+    "source_group": null
+  },
+  "GREEDYDATA": {
+    "expression": ".*",
+    "blacklist": false,
+    "source_group": null
+  },
+  "MAC": {
+    "expression": "(?:%{CISCOMAC}|%{WINDOWSMAC}|%{COMMONMAC})",
+    "blacklist": false,
+    "source_group": null
+  },
+  "CISCOMAC": {
+    "expression": "(?:(?:[A-Fa-f0-9]{4}\\.){2}[A-Fa-f0-9]{4})",
+    "blacklist": false,
+    "source_group": null
+  },
+  "COMMONMAC": {
+    "expression": "(?:(?:[A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2})",
+    "blacklist": false,
+    "source_group": null
+  },
+  "IP": {
+    "expression": "(?<![0-9])(?:(?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2}))(?![0-9])",
+    "blacklist": false,
+    "source_group": null
+  },
+  "HOSTNAME": {
+    "expression": "\\b(?:[0-9A-Za-z][0-9A-Za-z-]{0,62})(?:\\.(?:[0-9A-Za-z][0-9A-Za-z-]{0,62}))*(\\.?|\\b)",
+    "blacklist": false,
+    "source_group": null
+  },
+  "HOST": {
+    "expression": "%{HOSTNAME}",
+    "blacklist": false,
+    "source_group": null
+  },
+  "IPORHOST": {
+    "expression": "(?:%{HOSTNAME}|%{IP})",
+    "blacklist": false,
+    "source_group": null
+  },
+  "HOSTPORT": {
+    "expression": "(?:%{IPORHOST=~/\\./}:%{POSINT})",
+    "blacklist": false,
+    "source_group": null
+  },
+  "PATH": {
+    "expression": "(?:%{UNIXPATH}|%{WINPATH})",
+    "blacklist": false,
+    "source_group": null
+  },
+  "LINUXTTY": {
+    "expression": "(?:/dev/pts/%{POSINT})",
+    "blacklist": false,
+    "source_group": null
+  },
+  "BSDTTY": {
+    "expression": "(?:/dev/tty[pq][a-z0-9])",
+    "blacklist": false,
+    "source_group": null
+  },
+  "TTY": {
+    "expression": "(?:%{BSDTTY}|%{LINUXTTY})",
+    "blacklist": false,
+    "source_group": null
+  },
+  "URIPROTO": {
+    "expression": "[A-Za-z]+(\\+[A-Za-z+]+)?",
+    "blacklist": false,
+    "source_group": null
+  },
+  "URIHOST": {
+    "expression": "%{IPORHOST}(?::%{POSINT:port})?",
+    "blacklist": false,
+    "source_group": null
+  },
+  "URIPATH": {
+    "expression": "(?:/[A-Za-z0-9$.+!*'(),~:#%_-]*)+",
+    "blacklist": false,
+    "source_group": null
+  },
+  "URIPARAM": {
+    "expression": "\\?[A-Za-z0-9$.+!*'(),~#%&/=:;_-]*",
+    "blacklist": false,
+    "source_group": null
+  },
+  "URIPATHPARAM": {
+    "expression": "%{URIPATH}(?:%{URIPARAM})?",
+    "blacklist": false,
+    "source_group": null
+  },
+  "URI": {
+    "expression": "%{URIPROTO}://(?:%{USER}(?::[^@]*)?@)?(?:%{URIHOST})?(?:%{URIPATHPARAM})?",
+    "blacklist": false,
+    "source_group": null
+  },
+  "MONTH": {
+    "expression": "\\b(?:[Jj]an(?:uary)?|[Ff]eb(?:ruary)?|[Mm]ar(?:ch)?|[Aa]pr(?:il)?|[Mm]ay|[Jj]un(?:e)?|[Jj]ul(?:y)?|[Aa]ug(?:ust)?|[Ss]ep(?:tember)?|[Oo]ct(?:ober)?|[Nn]ov(?:ember)?|[Dd]ec(?:ember)?)\\b",
+    "blacklist": false,
+    "source_group": null
+  },
+  "MONTHNUM": {
+    "expression": "(?:0?[1-9]|1[0-2])",
+    "blacklist": false,
+    "source_group": null
+  },
+  "MONTHDAY": {
+    "expression": "(?:3[01]|[1-2]?[0-9]|0?[1-9])",
+    "blacklist": false,
+    "source_group": null
+  },
+  "DAY": {
+    "expression": "(?:[Mm]on(?:day)?|[Tt]ue(?:sday)?|[Ww]ed(?:nesday)?|[Tt]hu(?:rsday)?|[Ff]ri(?:day)?|[Ss]at(?:urday)?|[Ss]un(?:day)?)",
+    "blacklist": false,
+    "source_group": null
+  },
+  "YEAR": {
+    "expression": "[0-9]+",
+    "blacklist": false,
+    "source_group": null
+  },
+  "HOUR": {
+    "expression": "(?:2[0123]|[01][0-9])",
+    "blacklist": false,
+    "source_group": null
+  },
+  "MINUTE": {
+    "expression": "(?:[0-5][0-9])",
+    "blacklist": false,
+    "source_group": null
+  },
+  "SECOND": {
+    "expression": "(?:(?:[0-5][0-9]|60)(?:[.,][0-9]+)?)",
+    "blacklist": false,
+    "source_group": null
+  },
+  "TIME": {
+    "expression": "(?<![0-9])%{HOUR}:%{MINUTE}(?::%{SECOND})(?![0-9])",
+    "blacklist": false,
+    "source_group": null
+  },
+  "DATE_EU": {
+    "expression": "%{YEAR}[/-]%{MONTHNUM}[/-]%{MONTHDAY}",
+    "blacklist": false,
+    "source_group": null
+  },
+  "DATE_US": {
+    "expression": "%{MONTHNUM}[/-]%{MONTHDAY}[/-]%{YEAR}",
+    "blacklist": false,
+    "source_group": null
+  },
+  "ISO8601_TIMEZONE": {
+    "expression": "(?:Z|[+-]%{HOUR}(?::?%{MINUTE}))",
+    "blacklist": false,
+    "source_group": null
+  },
+  "ISO8601_SECOND": {
+    "expression": "(?:%{SECOND}|60)",
+    "blacklist": false,
+    "source_group": null
+  },
+  "TIMESTAMP_ISO8601": {
+    "expression": "%{YEAR}-%{MONTHNUM}-%{MONTHDAY}[T ]%{HOUR}:?%{MINUTE}(?::?%{SECOND})?%{ISO8601_TIMEZONE}?",
+    "blacklist": false,
+    "source_group": null
+  },
+  "DATE": {
+    "expression": "%{DATE_EU}|%{DATE_US}",
+    "blacklist": false,
+    "source_group": null
+  },
+  "DATESTAMP": {
+    "expression": "%{DATE}[- T]%{TIME}",
+    "blacklist": false,
+    "source_group": null
+  },
+  "TZ": {
+    "expression": "(?:[PMCE][SD]T)",
+    "blacklist": false,
+    "source_group": null
+  },
+  "DATESTAMP_RFC822": {
+    "expression": "%{DAY} %{MONTH} %{MONTHDAY} %{YEAR} %{TIME} %{TZ}",
+    "blacklist": false,
+    "source_group": null
+  },
+  "DATESTAMP_OTHER": {
+    "expression": "%{DAY} %{MONTH} %{MONTHDAY} %{TIME} %{TZ} %{YEAR}",
+    "blacklist": false,
+    "source_group": null
+  },
+  "PROG": {
+    "expression": "(?:[\\w._/-]+)",
+    "blacklist": false,
+    "source_group": null
+  },
+  "HTTPDATE": {
+    "expression": "%{MONTHDAY}/%{MONTH}/%{YEAR}:%{TIME} %{INT:ZONE}",
+    "blacklist": false,
+    "source_group": null
+  },
+  "PID": {
+    "expression": "(?:\\b\\w+\\[[0-9]+\\]:)",
+    "blacklist": false,
+    "source_group": null
+  },
+  "MESSAGE": {
+    "expression": "(?:%{WORD})+",
+    "blacklist": false,
+    "source_group": null
+  },
+  "RFC111": {
+    "expression": "%{DATESTAMP} %{WORD} %{PID} %{IP} %{IP}",
+    "blacklist": false,
+    "source_group": null
+  },
+  "DST": {
+    "expression": "dst=%{IP}",
+    "blacklist": false,
+    "source_group": null
+  },
+  "SRC": {
+    "expression": "src=%{IP}",
+    "blacklist": false,
+    "source_group": null
+  }
+}

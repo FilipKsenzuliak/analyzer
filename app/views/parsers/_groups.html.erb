@@ -1,3 +1,4 @@
+<% if @groups.present? %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -32,3 +33,6 @@
     <% end %>
   </tbody>
 </table>
+<% else %>
+  <p>There are no groups containing the term(s) <%= params[:search] %>.</p>
+<% end %>

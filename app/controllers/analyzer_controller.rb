@@ -67,7 +67,6 @@ class AnalyzerController < ApplicationController
       end
     end
 
-    pp @log_data
     @log_data.sort_by! {|data| data[:start_at]}
     @suggestion = suggest_pattern(@log_data.map{|item| item[:name]}.join(":"))
 
@@ -180,7 +179,7 @@ class AnalyzerController < ApplicationController
       match_data = {
                     name: pattern,
                     matched_text: matched_text,
-                    pattern: grok.expanded_pattern,
+                    pattern: grok.patterns[pattern],
                     sub: data
                    }
 

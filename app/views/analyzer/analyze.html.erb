@@ -15,7 +15,7 @@
 
 		<div id="table">
     <div id="divider"></div>
-  	  <table class="table">
+  	  <table class="table analyzer">
   	    <thead>
   	      <tr>
             <th></th>
@@ -27,7 +27,7 @@
   	    <tbody>
   	    	<% @log_data.each do |data| %>
   		      <tr class="<%= data[:match][:name]%>">
-              <td id="check"><input type="checkbox" class="group" name="newsletter" value="<%= data[:match] %>"/></td>
+              <td id="check"><input type="checkbox" class="group" name="newsletter" value="<%= data[:match][:matched_text][0] %>"/></td>
   		        <td id="attribute">
                 <div class="input-group">
                   <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value=<%= data[:match][:name] %>>
@@ -52,7 +52,16 @@
               <% end %>
   		      </tr>
             <% if data[:match][:sub].size != 0 %>
-              <%= render :partial => 'element', locals: { data: data[:match][:sub], class_name: data[:match][:name]} %>
+              <tr class="<%= data[:match][:name] %>">
+                <td></td>
+                <td colspan='3'>
+                  <table class="sub-table table-striped">
+                    <tbody>
+                        <%= render :partial => 'element', locals: { data: data[:match][:sub] } %>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
             <% end %>
   	      <% end %>
   	    </tbody>

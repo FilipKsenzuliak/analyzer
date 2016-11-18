@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   # parsers
   get '/parsers' => 'parsers#index'
+  get '/export_parsers' => 'parsers#export'
 
   # patterns
   get '/patterns' => 'patterns#index'

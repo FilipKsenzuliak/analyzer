@@ -28,8 +28,11 @@ window.pat = ->
   $('#p-arrow').fadeIn(1000)
   values = []
   $('.table tr:visible td:nth-child(2) div input').each ->
-    values.push $(this).val()
-  $('#pattern_text').val(values.join('::'))
+    values.push "%{" + $(this).val().toString() + "}"
+  separator = $("#separator").val().toString()
+  if separator == '(space)'
+    separator = ' '
+  $('#pattern_text').val(values.join(separator))
 
 $(document).on 'ready page:load', ->
   $(":checkbox").on "change", ->
@@ -52,8 +55,10 @@ $(document).on 'ready page:load', ->
   $('#s-arrow').fadeIn(1000)
 
 $(document).on 'ready page:load', ->
-  $(".table tr").on "click", ->
-    className = $(this).attr('class').split(' ')[0]
+  $(".analyzer tr").on "click", ->
+    className = $(this).attr('class')
+    if $(this).next().attr('class') == className
+      $(this).next().fadeToggle(1000)
     
 
 
