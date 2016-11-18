@@ -17,6 +17,7 @@ class ParsersController < ApplicationController
 
     grok.patterns.each do |name, expression|
       parser = Parser.new(name: name, expression: expression, blacklist: false)
+      parser.save
     end
     @parsers.each do |item|
       if item[:expression].match(/%{.*}/)
