@@ -9,20 +9,6 @@ class AnalyzerController < ApplicationController
     @hide = ''
   end
 
-  ## TOKENS
-  # $(document).on 'ready page:load', ->
-  # $('.parsers').on 'change', ->
-  #   $.ajax '/parsers',
-  #     type: 'POST'
-  #     dataType: 'json'
-  #     data: { code: 'nieco' }
-  #     success: (data) ->
-  #       console.log "Card name: " + data.cus
-
-  # p params[:code]
-  # @patterns = {cus: 'ahoj'}
-  # respond_with @patterns, location: logs_url
-
   # action taken after analyzing log
   def analyze
     @pattern = Pattern.new
