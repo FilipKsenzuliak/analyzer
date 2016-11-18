@@ -12,13 +12,6 @@ class ParsersController < ApplicationController
     @tokens = []
     @groups = []
 
-    grok = Grok.new
-    grok.add_patterns_from_file("#{Rails.root}/public/patterns/base")
-
-    grok.patterns.each do |name, expression|
-      parser = Parser.new(name: name, expression: expression, blacklist: false)
-      parser.save
-    end
     @parsers.each do |item|
       if item[:expression].match(/%{.*}/)
         @groups << item
