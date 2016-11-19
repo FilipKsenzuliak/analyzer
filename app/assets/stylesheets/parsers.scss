@@ -8,14 +8,6 @@
 	margin-bottom: 45px;
 }
 
-#name {
-	width: 20%;
-}
-
-#expression {
-	width: 80%;
-}
-
 input#signup, #login {
 	margin-top: 15px;	
 }
@@ -39,23 +31,23 @@ input#signup, #login {
 	margin-top: 10px;
 }
 
-#name {
+#p-name {
 	vertical-align: middle;
 	width: 15%;
 }
 
-#expression {
+#p-expression {
 	vertical-align: middle;
   width: 51%;
 }
 
-#blacklist {
+#p-blacklist {
 	vertical-align: middle;
   width: 8%;
   text-align: center;
 }
 
-#group {
+#p-group {
 	vertical-align: middle;
   width: 12%;
 }

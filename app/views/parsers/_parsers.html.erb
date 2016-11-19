@@ -1,4 +1,4 @@
-<% if @groups.present? %>
+<% if data.present? %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -11,14 +11,14 @@
     </tr>
   </thead>
   <tbody>
-    <% @groups.each do |item| %>
+    <% data.each do |item| %>
       <tr>
-        <td id="name"><%= item.name %></td>
-        <td id="expression"><%= item.expression %></td>
-        <td id="blacklist">
+        <td id="p-name"><%= item.name %></td>
+        <td id="p-expression"><%= item.expression %></td>
+        <td id="p-blacklist">
           <%= check_box_tag 'blacklisted', '1', item.blacklist, disabled: true %>
         </td>
-        <td id="group"><%= item.source_group %></td>
+        <td id="p-group"><%= item.source_group %></td>
         <td id="edit">
           <%= button_to edit_parser_path(item), class: "btn btn-success", :method => :get do %>
             Edit
@@ -34,5 +34,5 @@
   </tbody>
 </table>
 <% else %>
-  <p>There are no groups containing the term(s) <%= params[:search] %>.</p>
+  <p>There are no parsers containing the term(s) <%= params[:search] %>.</p>
 <% end %>

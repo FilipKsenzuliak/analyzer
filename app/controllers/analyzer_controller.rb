@@ -17,6 +17,7 @@ class AnalyzerController < ApplicationController
     @hide = 'hide'
     @log_data = []
     unmatched_text = @log_text.clone
+    session[:log] = @log_text
 
     redirect_to '/start', notice: 'Enter the log to be analyzed' if @log_text == '' 
 

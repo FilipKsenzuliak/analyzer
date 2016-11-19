@@ -20,9 +20,9 @@
  
 <div class="table">
 	<div id='tokens'>
-	  <%= render 'tokens' %>
+		<%= render :partial => 'parsers', locals: { data: @tokens } %>
 	</div>
 	<div id='groups' style='display:none'>
-	  <%= render 'groups' %>
+	  <%= render :partial => 'parsers', locals: { data: @groups } %>
 	</div>
 </div>

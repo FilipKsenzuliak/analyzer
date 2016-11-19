@@ -45,7 +45,7 @@ $(document).on 'ready page:load', ->
 $(document).on 'ready page:load', ->
   $(".group").on "click", ->
     if $( "input:checked" ).length == 0
-      $('#arrow').fadeIn(1000)
+      $('#g-arrow').fadeIn(1000)
 
 $(document).on 'ready page:load', ->
   $("#parts").on "mouseover", ->
@@ -55,10 +55,14 @@ $(document).on 'ready page:load', ->
   $('#s-arrow').fadeIn(1000)
 
 $(document).on 'ready page:load', ->
-  $(".analyzer tr").on "click", ->
-    className = $(this).attr('class')
-    if $(this).next().attr('class') == className
-      $(this).next().fadeToggle(1000)
-    
+  $(".arrow-down").on "click", ->
+    if $(this).attr('class') == 'arrow-down' 
+      $(this).addClass('arrow-up').removeClass('arrow-down')
+    else
+      $(this).addClass('arrow-down').removeClass('arrow-up')
+    className = $(this).closest('tr').attr('class')
+    if $(this).closest('tr').next().attr('class') == className
+      $(this).closest('tr').next().fadeToggle(1000)
+
 
 

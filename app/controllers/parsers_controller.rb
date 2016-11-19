@@ -34,6 +34,25 @@ class ParsersController < ApplicationController
   	@parser = Parser.find(params[:id])
   end
 
+  def form_save
+    @parser = Parser.new(
+                          name: params[:name],
+                          expression: params[:expression],
+                          blacklist: params[:blacklist],
+                          source_group: params[:source_group]
+                        )
+    respond_to do |format|
+      if @parser.save
+        format.js
+        format.html { redirect_to '/parsers' , notice: 'Parser was successfully created.' }
+        format.json { render :show, status: :created, location: @parser }
+      else
+        format.html { render :new }
+        format.json { render json: @parser.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def create
     @parser = Parser.new(parser_params)
 

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   # parsers
   get '/parsers' => 'parsers#index'
   get '/export_parsers' => 'parsers#export'
+  post '/form' => 'parsers#form_save'
 
   # patterns
   get '/patterns' => 'patterns#index'

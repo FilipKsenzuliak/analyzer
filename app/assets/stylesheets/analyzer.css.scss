@@ -23,6 +23,11 @@
 	vertical-align: middle;
 }
 
+#arrow {
+	width: 3%;
+	vertical-align: middle;
+}
+
 #regex {
 	max-width: 50%;
 }
@@ -62,7 +67,7 @@ input[type="checkbox"]{
 	position: relative;
 }
 
-#arrow {
+#g-arrow {
 	position: absolute;
 	width: 100px;
 	height: 200px;
@@ -128,4 +133,26 @@ tr.sub {
 #sub-attribute {
 	width: 20%;
 	vertical-align: middle;
+}
+
+.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  
+  border-top: 20px solid #428bca;
+}
+
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  
+  border-bottom: 20px solid #428bca;
+}
+
+#blacklist {
+	display: block;
 }

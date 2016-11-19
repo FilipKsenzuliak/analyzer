@@ -8,9 +8,7 @@
 		  <%= label_tag(:separator, "Split on:") %>
 			<%= select_tag(:separator, options_for_select([['(space)', ' '], ['|', '|'], ['/', '/']], selected: params[:separator] ), class: "form-control") %>
 		</div>
-		<% #if @hide == '' %>
-	  	<%= submit_tag "Analyze", class: "btn btn-default btn-lg", id: "log-submit" %>
-	  <% #end %>
+	  <%= submit_tag "Analyze", class: "btn btn-default btn-lg", id: "log-submit" %>
 	</div>
 <% end %>
 
