@@ -6,9 +6,14 @@
 		</div>
 		<div id="separate">
 		  <%= label_tag(:separator, "Split on:") %>
-			<%= select_tag(:separator, options_for_select([['(space)', ' '], ['|', '|'], ['/', '/']], selected: params[:separator] ), class: "form-control") %>
+			<%= select_tag(:separator, options_for_select([['space', ' '], ['|', '|'], ['/', '/']], selected: params[:separator] ), class: "form-control") %>
 		</div>
-	  <%= submit_tag "Analyze", class: "btn btn-default btn-lg", id: "log-submit" %>
+		<div id="patterns" class="left">
+			<%= label_tag(:include, "Include patterns to log analyzing?:") %>
+		  <%= check_box_tag :include, '1', defined?(@include) ? @include : true %>
+		</div>
+
+	  <%= submit_tag "Analyze", class: "btn btn-primary btn-lg", id: "log-submit" %>
 	</div>
 <% end %>
 

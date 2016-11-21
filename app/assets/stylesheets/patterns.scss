@@ -2,8 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#text {
+#pat-text, #pat-source, #pat-logs {
 	vertical-align: middle;
+}
+
+#pat-text {
+	width: 30%;
+}
+
+#pat-source {
+	width: 10%
+}
+
+#pat-logs {
+	width: 47%;
 }
 
 #edit {
@@ -20,6 +32,16 @@
 
 .edit-pattern {
 	position: relative;
-	top: -45.5px;
-	left: 85px;
+	top: -61.5px;
+	left: 100px;
+}
+
+.options {
+	height: 45px;
+	margin-bottom: 15px;	
+}
+
+#new-pattern {
+	margin: auto;
+	width: 30%;
 }

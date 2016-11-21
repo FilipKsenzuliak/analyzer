@@ -4,7 +4,7 @@
 
 
 window.group = ->
-  if $( "input:checked" ).length >= 2
+  if $( ".table input:checked" ).length >= 2
     values = []
     checked = $('input:checked')
     sign = false
@@ -27,7 +27,7 @@ window.pat = ->
   $('.output-pattern').show(200)
   $('#p-arrow').fadeIn(1000)
   values = []
-  $('.table tr:visible td:nth-child(2) div input').each ->
+  $('.table tr:visible td:nth-child(2)>div>input').each ->
     values.push "%{" + $(this).val().toString() + "}"
   separator = $("#separator").val().toString()
   if separator == '(space)'
@@ -48,10 +48,6 @@ $(document).on 'ready page:load', ->
       $('#g-arrow').fadeIn(1000)
 
 $(document).on 'ready page:load', ->
-  $("#parts").on "mouseover", ->
-    $('#suggestion').css('visibility', 'visible')
-
-$(document).on 'ready page:load', ->
   $('#s-arrow').fadeIn(1000)
 
 $(document).on 'ready page:load', ->
@@ -64,5 +60,15 @@ $(document).on 'ready page:load', ->
     if $(this).closest('tr').next().attr('class') == className
       $(this).closest('tr').next().fadeToggle(1000)
 
+$(document).on 'ready page:load', ->
+  $(".submit-btn").click (event) ->
+    event.preventDefault()
+    $(this).prev().submit()
+
+$(document).on 'ready page:load', ->
+  elements =  $('.table tbody tr:visible')
+  elements.each ->
+    if $(this).attr('class') != '<UNKNOWN>'
+      $(this).find("td:nth-child(2)>div>input").css('background-color', '#b2e8ae')
 
 

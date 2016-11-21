@@ -58,7 +58,7 @@ input[type="checkbox"]{
 	background-color: #5cb85c;
 }
 
-#pattern_text {
+#pattern_text, #pattern_source {
 	height: 50px;
 	font-size: 130%;
 }
@@ -96,6 +96,8 @@ input[type="checkbox"]{
 }
 
 .output-pattern {
+	height: 150px;
+	margin-top: 10px;
 	display: none;
 }
 
@@ -104,12 +106,13 @@ input[type="checkbox"]{
 
 #sug-select {
 	display: inline-block;
-	width: 92%;
+	width: 91%;
 	height: 50px;
 	font-size: 130%;
 }
 
 #suggestion label {
+	width: 8.7%;
 	display: inline-block;
 }
 
@@ -155,4 +158,26 @@ tr.sub {
 
 #blacklist {
 	display: block;
+}
+
+#patterns {
+	margin: 10px 0 0 10px;
+}
+
+#include {
+	vertical-align: middle;
+	width: 30px;
+	height: 25px;
+	margin-bottom: 5px;
+}
+
+#pattern-text {
+	display: inline-block;
+	width: 80%;
+	margin-right: 1em;
+}
+
+#pattern-source {
+	display: inline-block;
+	width: 18.5%;
 }

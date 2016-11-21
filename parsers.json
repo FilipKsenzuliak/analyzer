@@ -313,10 +313,5 @@
     "expression": "src=%{IP}",
     "blacklist": false,
     "source_group": null
-  },
-  "teeeee": {
-    "expression": "teeee",
-    "blacklist": true,
-    "source_group": null
   }
 }

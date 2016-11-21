@@ -1,0 +1,8 @@
+$('#splitModal').modal('hide');
+
+console.log('som tuuuu');
+
+$(".<%= @class %>:first").after("<%= escape_javascript render :partial => 'split', locals: { data: @split_text } %>");
+$(".<%= @class %>").hide();
+
+

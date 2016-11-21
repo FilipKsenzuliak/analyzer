@@ -1,18 +1,39 @@
-<%= button_to 'New Pattern', new_pattern_path, class: "btn btn-primary", :method => :get %>
+<div class="options">
+  <%= button_to 'New Pattern', new_pattern_path, class: "btn btn-primary left", :method => :get %>
+
+  <%= form_tag("/patterns", method: "get") do %>
+    <div id="search-input">
+      <%= text_field_tag :search, params[:search], class: "form-control left" %>
+    </div>
+    <%= submit_tag "Search", class: "btn btn-default left", id: "search-submit" %>
+  <% end %>
+</div>
 
 <p id="notice"><%= notice %></p>
 
-<div class="table" id="table">
+<% if @patterns.present? %>
+<div id="table">
   <table class="table table-striped">
     <thead>
       <tr>
-        <th colspan='3'>Pattern</th>
+        <th>Pattern</th>
+        <th>Source</th>
+        <th>Log samples</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <% @patterns.each do |pattern| %>
         <tr>
-          <td id="text"><%= pattern.text %></span></td>
+          <td id="pat-text"><%= pattern.text %></span></td>
+          <td id="pat-source"><%= pattern.source %></span></td>
+          <td id="pat-logs">
+            <select class="form-control">
+            <% pattern.logs.each do |log| %>
+              <option><%= log.text %></option>
+            <% end %> 
+            </select>
+          </td>
           <td id="edit">
             <%= button_to edit_pattern_path(pattern), class: "btn btn-success", :method => :get do %>
               Edit
@@ -28,7 +49,9 @@
     </tbody>
   </table>
 </div>
-
+<% else %>
+  <p>There are no patterns containing the term(s) <%= params[:search] %>.</p>
+<% end %>
 
 
 

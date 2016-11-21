@@ -4,33 +4,56 @@ class AnalyzerController < ApplicationController
   require 'pp'
 
   # example log: 01/20/2016 06:15:05.85 w3wp.exe (0x5154) 03194 SharePoint Foundation Micro Trace uls4 Medium Micro Trace Tags: (none) 20fa569d-e927-7055-3239-2cc8d3f9a2b7 
-  
+  # UPRAVIT GROUP ELEMENTS
+  # PRIDAT MOZNO EXPORT PATTERNOV
+  # FORM_PARSER -> redirect_to analyzer/discover -> respond to js a zmenit matched data
+  ##### DEFINOVANY PATTERN ALE NIE JEHO CAST %{USERPID}
   def index
     @hide = ''
   end
 
-  # action taken after analyzing log
+  def save_text
+    session[:text_to_split] = params[:name]
+    session[:split_class] = params[:class]
+  end
+
+  def split_element
+    separator = (params[:split] == 'space') ? ' ' : params[:split]
+    @split_text = session[:text_to_split].split(separator)
+    @class = session[:split_class]
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def analyze
     @pattern = Pattern.new
     @log_text = format(params[:log])
+    @include = params[:include]
     log_separator = params[:separator]
-    @hide = 'hide'
+    #@hide = 'hide'
     @log_data = []
     unmatched_text = @log_text.clone
     session[:log] = @log_text
 
     redirect_to '/start', notice: 'Enter the log to be analyzed' if @log_text == '' 
 
-    grok = Grok.new
-    patterns = Parser.all
-    patterns.each do |p|
-      grok.add_pattern(p.name, p.expression)
+    @grok = Grok.new
+    parsers = Parser.all
+    parsers.each do |p|
+      @grok.add_pattern(p.name, p.expression)
     end
-    # grok.add_patterns_from_file("#{Rails.root}/public/patterns/base2")
+
+    if @include
+      Pattern.all.each do |p|
+        @grok.add_pattern('vzor', p.text)
+      end
+    end
 
     new_text = @log_text.clone
-    
-    @log_data = discover(@log_text, grok)
+    @log_data = discover(@log_text, @grok)
+
     # remove matched data from text
     @log_data.map do |data|
       text = data[:match][:matched_text].first
@@ -50,6 +73,15 @@ class AnalyzerController < ApplicationController
                      }
         replace = "*" * data.length
         new_text.sub!(data, replace)
+      end
+    end
+
+    # add log to samples if it matches
+    if @log_data.size == 1 && @include
+      pattern = Pattern.where(["text = ?", @log_data.first[:pattern]]).first
+      if pattern.logs.size <= 4
+        log = Log.new(text: @log_data.first[:match][:matched_text].first , pattern_id: pattern.id)
+        log.save
       end
     end
 
@@ -82,7 +114,7 @@ class AnalyzerController < ApplicationController
   # modified method taken from jls-grok gem for discovering patterns
   def discover(text, grok, unmatched = false)
     tmp_text = text.clone
-    suggestions = []
+    parsed_data = []
 
     groks = {}
     grok.patterns.each do |name, expression| 
@@ -116,11 +148,10 @@ class AnalyzerController < ApplicationController
         acting = true
 
         match = expand_pattern(grok.pattern, grok, m.captures, 5)
-        # save name (ip), text (192.168.0.2), start_at_index (3), pattern (/regex/)
-        suggestions << {
+        parsed_data << {
                         match: match,
                         start_at: tmp_text.index(matched_text),
-                        pattern: grok.expanded_pattern
+                        pattern: grok.patterns[name]#grok.expanded_pattern
                        }
         replace = "*" * matched_text.length
         tmp_text.sub!(matched_text, replace)
@@ -131,7 +162,7 @@ class AnalyzerController < ApplicationController
       end
     end
 
-    return suggestions
+    return parsed_data
   end # def discover
 
   def compare(a, b)

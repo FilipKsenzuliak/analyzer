@@ -1,4 +1,9 @@
-<%= form_for(@pattern) do |f| %>
-    <%= f.text_field :text, class: "form-control"%>
-    <%= f.submit "Save", class: "btn btn-default btn-lg", id: "pattern-create" %>
+<%= form_for @pattern do |f| %>
+	<div class="form-group">
+		<%= label_tag(:text, "Pattern:") %>
+    <%= f.text_area :text, class: "form-control"%>
+    <%= label_tag(:source, "Source:") %>
+	  <%= f.text_field :source, class: "form-control" %>
+    <%= f.submit "Submit", class: "btn btn-default btn-lg", id: "pattern-create" %>
+  </div>
 <% end %>

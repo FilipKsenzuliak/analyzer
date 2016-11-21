@@ -1,0 +1,8 @@
+var recognized = <%= @recognized %>;
+if (recognized) {
+	$('#warn').html("Pattern is already present in the database");
+} else {
+	$('#warn').html("Unrecognized parser for: <%= @unknown %>");
+}
+
+window.scrollTo(0, 0);

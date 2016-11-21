@@ -43,7 +43,7 @@ class ParsersController < ApplicationController
                         )
     respond_to do |format|
       if @parser.save
-        format.js
+        format.js # discover vzor a poslat do JS
         format.html { redirect_to '/parsers' , notice: 'Parser was successfully created.' }
         format.json { render :show, status: :created, location: @parser }
       else

@@ -3,6 +3,7 @@
 <% if current_user %>
 
 <p id="notice" style="color: green;"></p>
+<p id="warn" style="color: red;"></p>
 
 <%= render 'search' %>
 
@@ -15,6 +16,7 @@
     </select>
   </div>	
 
+<% if @log_data.size > 1 %>
 		<div id="table">
     <div id="divider"></div>
   	  <table class="table analyzer">
@@ -44,21 +46,31 @@
                           Create parser
                         </a>
                       </li>
-                      <li><a href="#">Split expression</a></li>
+                      <li>
+                        <%= form_tag '/save_text', :id => 'split-form', method: :get, remote: true do %>
+                          <%= text_field_tag :name, data[:match][:matched_text][0], :class => "form-control hide" %>
+                          <%= text_field_tag :class, data[:match][:name], :class => "form-control hide" %>
+                        <% end %>
+                        <a href="" class="submit-btn" data-toggle="modal" data-target="#splitModal">
+                          Split expression
+                        </a>
+                      </li>
                       <li class="divider"></li>
                       <li><a href="#">Save</a></li>
                     </div>
                   </div>
                 </div>
               </td>
-  		        <td id="value"><%= data[:match][:matched_text][0] %></td>
+  		        <td id="value">
+                <%= data[:match][:matched_text][0] %>
+              </td>
               <td id="arrow">
                 <% if data[:match][:sub].size != 0 %>
                   <div class="arrow-down"></div>
                 <% end %>
               </td>
               <% unless data[:pattern] == '' %>
-                <td id="regex"><textarea class="form-control" id="text-regex" readonly> <%= data[:pattern] %> </textarea></td>
+                <td id="regex"><textarea class="form-control" id="text-regex" readonly> <% @grok.compile(data[:pattern]) %><%=  @grok.expanded_pattern %> </textarea></td>
               <% else %>
                 <td id="regex"><textarea class="form-control" id="text-regex" readonly> No regular expression available </textarea></td>
               <% end %>
@@ -90,23 +102,31 @@
       <div id="p-arrow" style="display:none"></div>
     </div>
 
-    <%= form_for @pattern, url: '/patterns' do |f| %>
+    <%= form_for @pattern, url: '/save', remote: true do |f| %>
       <div class="form-group output-pattern">
-        <%= f.label(:text, "Pattern:") %>
-        <%= f.text_field :text, class: "form-control"%>
+        <div id="pattern-text">
+          <%= f.label(:text, "Pattern:") %>
+          <%= f.text_field :text, class: "form-control"%>
+        </div>
+        <div id="pattern-source">
+          <%= f.label(:source, "Source:") %>
+          <%= f.text_field :source, class: "form-control"%>
+        </div>
+        <%= text_field_tag :log, @log_text, :class => "hide" %>
         <%= f.submit "Save", class: "btn btn-default btn-lg", id: "log-submit"%>
       </div>
     <% end %>
 
 </div>
+<% else %>
+  <h1> Log matches pattern: <%= @log_data.first[:pattern] %></h1>
+<% end %> <!-- end of if size > 1 -->
 
 <% else %>
-
-<p> Please log in to continue </p>
-
+  <p> Please log in to continue </p>
 <% end %>
 
-<!-- MODAL -->
+<!-- MODAL FOR NEW PARSER -->
 <div class="modal fade" id="approvalModal" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -119,7 +139,7 @@
               <%= label_tag :name, 'Name', :class => 'control-label' %>
               <%= text_field_tag :name, params[:name], :class => "form-control" %>
               <%= label_tag :expression, 'Expression', :class => 'control-label' %>
-              <%= text_field_tag :expression, params[:expression], :class => "form-control" %>
+              <%= text_area_tag :expression, params[:expression], :class => "form-control" %>
               <%= label_tag :blacklist, 'Blacklist', :class => 'control-label' %>
               <%= check_box_tag :blacklist, params[:blacklist], :class => "form-control" %>
               <%= label_tag :source_group, 'Source group', :class => 'control-label' %>
@@ -129,6 +149,28 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
            <%= submit_tag "Create", name: nil, class: "btn btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL FOR SPLITTING -->
+<div class="modal fade" id="splitModal" tabindex="-1" role="dialog" aria-labelledby="splitModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Choose character to split on:</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_tag '/split', method: :get, remote: true do %>
+          <%= label_tag :split, 'For space write: space', :class => 'control-label' %>
+          <%= text_field_tag :split, params[:split], :class => "form-control" %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+           <%= submit_tag "Split", name: nil, class: "btn btn-success" %>
         <% end %>
       </div>
     </div>

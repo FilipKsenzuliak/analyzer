@@ -57,10 +57,11 @@
 	margin-top: 70px;
 	position: relative;
 	clear: both;
+	margin-bottom: 25px;
 }
 
 #expand {
-	height: 45px;
+	height: 46px;
 	font-size: 130%;
 }
 

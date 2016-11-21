@@ -1,4 +1,0 @@
-$(".table").html("<%= escape_javascript(render partial: 'logs/tokens', locals: { patterns: @patterns } ) %>");
-
-<%= link_to 'Show', tokens_path, remote: true %>
-<%= button_to "tokens", tokens_path, class: "btn btn-default tokens", :method => :get, remote: true %>
