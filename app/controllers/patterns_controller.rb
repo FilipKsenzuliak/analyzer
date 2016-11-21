@@ -46,19 +46,17 @@ class PatternsController < ApplicationController
   def create_with_log
     @pattern = Pattern.new(pattern_params)
     parsers = Parser.all
-    parsers_names = []
+    parser_names = []
     parts = @pattern[:text].split(/[\s|\/]/)
     @recognized = true
     @unknown = ''
 
     parsers.each do |parser|
-      parsers_names << parser.name
+      parser_names << parser.name
     end
     
     parts.each do |part|
-      pp '*****************'
-      pp part
-      unless parsers_names.include? part.gsub(/[\{\}\%]/, '')
+      unless parser_names.include? part.gsub(/[\{\}\%]/, '')
         @unknown = part
         @recognized = false
       end

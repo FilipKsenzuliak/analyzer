@@ -1,6 +1,7 @@
 class ParsersController < ApplicationController
 	require 'grok-pure'
   respond_to :json, :html, :js
+  add_flash_types :success, :warn
 
 	def index
 		if params[:search]
@@ -69,26 +70,57 @@ class ParsersController < ApplicationController
 
   def update
   	@parser = Parser.find(params[:id])
+    patterns = Pattern.all
+    pattern_names = []
+    able = true
+
+    patterns.each do |pattern|
+      pattern_names << pattern.text
+    end
+    
+    if pattern_names.include? '%{' + @parser.name.to_s + '}'
+      able = false
+    end
+
     respond_to do |format|
-      if @parser.update(parser_params)
-        format.html { redirect_to '/parsers', notice: 'Parser was successfully updated.' }
-        format.json { render :show, status: :ok, location: @parser }
+      if able
+        if @parser.update(parser_params)
+          format.html { redirect_to '/parsers', notice: 'Parser was successfully updated.' }
+          format.json { render :show, status: :ok, location: @parser }
+        else
+          format.html { render :edit }
+          format.json { render json: @parser.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :edit }
-        format.json { render json: @parser.errors, status: :unprocessable_entity }
+        format.html { redirect_to edit_parser_path(@parser), warn: "Can't update parser because it is present in pattern(s)" }
       end
     end
   end
 
   def destroy
     @parser = Parser.find(params[:id])
-    if @parser.present?
-      @parser.destroy
+    patterns = Pattern.all
+    pattern_names = []
+    able = true
+
+    patterns.each do |pattern|
+      pattern_names << pattern.text
+    end
+
+    if pattern_names.include? '%{' + @parser.name.to_s + '}'
+      able = false
     end
 
     respond_to do |format|
-      format.html { redirect_to parsers_url, notice: 'Parser was successfully destroyed.' }
-      format.json { head :no_content }
+      if able
+        if @parser.present?
+          @parser.destroy
+        end
+        format.html { redirect_to parsers_url, notice: 'Parser was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to parsers_url, warn: "Can't destroy parser because it is present in pattern(s)" }
+      end
     end
   end
 
