@@ -166,7 +166,7 @@
       <div class="modal-body">
         <%= form_tag '/split', method: :get, remote: true do %>
           <%= label_tag :split, 'For space write: space', :class => 'control-label' %>
-          <%= text_field_tag :split, params[:split], :class => "form-control" %>
+          <%= text_field_tag :split, '', :class => "form-control" %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
