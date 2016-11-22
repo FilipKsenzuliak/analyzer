@@ -1,6 +1,6 @@
 <!-- <div id="image"></div> -->
 
-<% if current_user %>
+
 
 <p id="notice" style="color: green;"></p>
 <p id="warn" style="color: red;"></p>
@@ -33,7 +33,7 @@
   	    	<% @log_data.each do |data| %>
   		      <tr class="<%= data[:match][:name]%>">
               <td id="check"><input type="checkbox" class="group" name="newsletter" value="<%= data[:match][:matched_text][0] %>"/></td>
-  		        <td id="attribute">
+              <td id="attribute">
                 <div class="input-group">
                   <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value=<%= data[:match][:name] %>>
                   <div class="input-group-btn">
@@ -47,21 +47,15 @@
                         </a>
                       </li>
                       <li>
-                        <%= form_tag '/save_text', :id => 'split-form', method: :get, remote: true do %>
-                          <%= text_field_tag :name, data[:match][:matched_text][0], :class => "form-control hide" %>
-                          <%= text_field_tag :class, data[:match][:name], :class => "form-control hide" %>
-                        <% end %>
-                        <a href="" class="submit-btn" data-toggle="modal" data-target="#splitModal">
+                        <a href="" class="submit-btn">
                           Split expression
                         </a>
                       </li>
-                      <li class="divider"></li>
-                      <li><a href="#">Save</a></li>
                     </div>
                   </div>
                 </div>
               </td>
-  		        <td id="value">
+              <td id="value">
                 <%= data[:match][:matched_text][0] %>
               </td>
               <td id="arrow">
@@ -74,7 +68,7 @@
               <% else %>
                 <td id="regex"><textarea class="form-control" id="text-regex" readonly> No regular expression available </textarea></td>
               <% end %>
-  		      </tr>
+            </tr>
             <% if data[:match][:sub].size != 0 %>
               <tr class="<%= data[:match][:name] %>" style="display:none" >
                 <td></td>
@@ -122,9 +116,7 @@
   <h1> Log matches pattern: <%= @log_data.first[:pattern] %></h1>
 <% end %> <!-- end of if size > 1 -->
 
-<% else %>
-  <p> Please log in to continue </p>
-<% end %>
+
 
 <!-- MODAL FOR NEW PARSER -->
 <div class="modal fade" id="approvalModal" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
@@ -164,14 +156,14 @@
         <h4 class="modal-title">Choose character to split on:</h4>
       </div>
       <div class="modal-body">
-        <%= form_tag '/split', method: :get, remote: true do %>
-          <%= label_tag :split, 'For space write: space', :class => 'control-label' %>
-          <%= text_field_tag :split, '', :class => "form-control" %>
+        <lavel>CAAV</label>
+        <input type="text" id="split">
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-           <%= submit_tag "Split", name: nil, class: "btn btn-success" %>
-        <% end %>
+        <button type="button" class="btn btn-success split-confirm" data-dismiss="modal">sucess</button>
+
       </div>
     </div>
   </div>

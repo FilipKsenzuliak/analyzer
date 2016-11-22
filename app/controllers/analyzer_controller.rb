@@ -12,21 +12,6 @@ class AnalyzerController < ApplicationController
     @hide = ''
   end
 
-  def save_text
-    session[:text_to_split] = params[:name]
-    session[:split_class] = params[:class]
-  end
-
-  def split_element
-    separator = (params[:split] == 'space') ? ' ' : params[:split]
-    @split_text = session[:text_to_split].split(separator)
-    @class = session[:split_class]
-
-    respond_to do |format|
-      format.js
-    end
-  end
-
   def analyze
     @pattern = Pattern.new
     @log_text = format(params[:log])

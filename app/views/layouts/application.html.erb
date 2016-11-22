@@ -30,7 +30,11 @@
 
 <div id="layout">
 
-<%= yield %>
+<% if current_user || (request.original_fullpath.include? 'login') || (request.original_fullpath.include? 'signup') %>
+  <%= yield %>
+<% else %>
+  <p> Please log in to continue </p>
+<% end %>
 
 </div>
 

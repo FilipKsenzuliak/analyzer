@@ -2,11 +2,18 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+$(document).on 'ready page:load', ->
+  $(":checkbox").on "change", ->
+    button = $('.group')
+    if $( "#table .analyzer tr input:checked" ).length >= 2
+      button.attr('id', 'green')
+    else
+      button.attr('id', '')
 
 window.group = ->
-  if $( ".table input:checked" ).length >= 2
+  if $( "#table .analyzer tr" ).length >= 2
     values = []
-    checked = $('input:checked')
+    checked = $('#table .analyzer tr input:checked')
     sign = false
     first = null
     checked.each ->
@@ -33,14 +40,6 @@ window.pat = ->
   if separator == '(space)'
     separator = ' '
   $('#pattern_text').val(values.join(separator))
-
-$(document).on 'ready page:load', ->
-  $(":checkbox").on "change", ->
-    button = $('.group')
-    if $( "input:checked" ).length >= 2
-      button.attr('id', 'green')
-    else
-      button.attr('id', '')
 
 $(document).on 'ready page:load', ->
   $(".group").on "click", ->
