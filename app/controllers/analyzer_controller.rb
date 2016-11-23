@@ -31,8 +31,8 @@ class AnalyzerController < ApplicationController
     end
 
     if @include
-      Pattern.all.each do |p|
-        @grok.add_pattern('vzor', p.text)
+      Pattern.all.each_with_index do |p, i|
+        @grok.add_pattern('KNOWN_PATTERN' + i.to_s, p.text)
       end
     end
 
@@ -62,32 +62,47 @@ class AnalyzerController < ApplicationController
     end
 
     # add log to samples if it matches
+    @pattern = Pattern.new
     if @log_data.size == 1 && @include
-      pattern = Pattern.where(["text = ?", @log_data.first[:pattern]]).first
-      if pattern.logs.size <= 4
-        log = Log.new(text: @log_data.first[:match][:matched_text].first , pattern_id: pattern.id)
+      @pattern = Pattern.where(["text = ?", @log_data.first[:pattern]]).first
+      pp @pattern
+      if @pattern.logs.size <= 4
+        log = Log.new(text: @log_data.first[:match][:matched_text].first , pattern_id: @pattern.id)
         log.save
       end
     end
 
     @log_data.sort_by! {|data| data[:start_at]}
-    @suggestion = suggest_pattern(@log_data.map{|item| item[:name]}.join(":"))
+    result = suggest_pattern(@log_data.map{|item| '%{' + item[:match][:name].to_s + '}'}.join(" "))
+    values = result.sort_by{|k, v| v}.first 3
+
+    @suggestions = []
+    values.each do |k, v|
+      @suggestions << k
+    end
 
   end # def analyze
 
-  # pattern recognition
+  # aproximate pattern matching
   def suggest_pattern(parsed_pattern)
-    suggestion = ''
-    min = 1
+    suggestions = {}
     Pattern.all.each do |pattern|
       cmp_min = Levenshtein.normalized_distance pattern.text.to_s, parsed_pattern.to_s
-      if cmp_min < min
-        suggestion = pattern.text.to_s
-        min = cmp_min
-      end
+      suggestions[pattern.text.to_s] = cmp_min
     end
-    suggestion
+    suggestions
   end # def suggest_pattern
+
+  # return max n elements from array
+  def max_n(n, &block)
+    block = Proc.new { |x,y| x <=> y } if block == nil
+    stable = SortedArray.new(&block) 
+    each do |x|
+      stable << x if stable.size < n or block.call(x, stable[0]) == 1
+      stable.shift until stable.size <= n
+    end
+    return stable 
+  end # def max_n
 
   # format entry log of whitespaces
   def format(log)

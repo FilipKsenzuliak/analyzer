@@ -1,4 +1,3 @@
-
 $(document).on 'ready page:load', ->
   $('.submit-btn').on 'click', ->
     $('#splitModal').modal('show')
@@ -7,10 +6,15 @@ $(document).on 'ready page:load', ->
     $('.split-confirm').on 'click', ->
       element.hide()
       split = $('#split').val()
+      console.log 'spliit ' + split
       parts = value.split(split)
       console.log parts
       for part in parts
         element.after(createPattern(part))
+
+$(document).on 'ready page:load', ->
+  $('#splitModal').on 'hide.bs.modal', ->
+    $('.split-confirm').unbind()
 
 window.createPattern = (data) ->
   pattern = """

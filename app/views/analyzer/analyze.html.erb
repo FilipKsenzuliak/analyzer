@@ -1,7 +1,3 @@
-<!-- <div id="image"></div> -->
-
-
-
 <p id="notice" style="color: green;"></p>
 <p id="warn" style="color: red;"></p>
 
@@ -12,7 +8,9 @@
   <div class="form-group" id="suggestion">
     <label> Suggestions: </label>
     <select class="form-control" id="sug-select">
-      <option><%= @suggestion %></option>
+      <% @suggestions.each do |suggestion| %>
+        <option><%= suggestion %></option>
+      <% end %>
     </select>
   </div>	
 
@@ -113,7 +111,32 @@
 
 </div>
 <% else %>
-  <h1> Log matches pattern: <%= @log_data.first[:pattern] %></h1>
+<div id="divider"></div>
+<h2> Log was matched to pattern: </h2>
+  <div id="table">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Pattern</th>
+          <th>Source</th>
+          <th>Log samples</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr style="background-color:#b2e8ae">
+            <td id="pat-text"><%= @pattern.text %></span></td>
+            <td id="pat-source"><%= @pattern.source %></span></td>
+            <td id="pat-logs">
+              <select class="form-control">
+              <% @pattern.logs.each do |log| %>
+                <option><%= log.text %></option>
+              <% end %> 
+              </select>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
 <% end %> <!-- end of if size > 1 -->
 
 
