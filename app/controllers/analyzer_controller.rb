@@ -17,6 +17,7 @@ class AnalyzerController < ApplicationController
     @log_data = []
     unmatched_text = @log_text.clone
     session[:log] = @log_text
+    @pat = ''
 
     redirect_to '/start', notice: 'Enter the log to be analyzed' if @log_text == '' 
 
@@ -71,6 +72,7 @@ class AnalyzerController < ApplicationController
     result = suggest_pattern(@log_data.map{|item| '%{' + item[:match][:name].to_s + '}'}.join(" "))
     values = result.sort_by{|k, v| v}.first 3
 
+    @pat = @log_data.map{|item| '%{' + item[:match][:name].to_s + '}'}.join(" ")
     @suggestions = []
     values.each do |k, v|
       @suggestions << k
@@ -94,6 +96,7 @@ class AnalyzerController < ApplicationController
     @log_text = params[:log]
     @log_data = []
     @include = params[:include]
+    @pat = ''
 
     @grok = Grok.new
     parsers = Parser.all
@@ -152,6 +155,8 @@ class AnalyzerController < ApplicationController
 
       result = suggest_pattern(@log_data.map{|item| '%{' + item[:match][:name].to_s + '}'}.join(" "))
       values = result.sort_by{|k, v| v}.first 3
+
+      @pat = @log_data.map{|item| '%{' + item[:match][:name].to_s + '}'}.join(" ")
 
       @suggestions = []
       values.each do |k, v|
@@ -276,4 +281,10 @@ class AnalyzerController < ApplicationController
       return nil
     end
   end # def expand_pattern
+
+  def save_log
+    session[:log] = params[:log]
+    session[:pattern] = params[:pattern]
+    redirect_to :controller => 'event', :action => 'index' 
+  end
 end

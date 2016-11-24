@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "/split" => "analyzer#split_element"
   get "/save_text" => "analyzer#save_text"
   get "/replace" => "analyzer#replace_data"
+  post "/save_log" => "analyzer#save_log"
 
   # event
   get '/event' => "event#index"

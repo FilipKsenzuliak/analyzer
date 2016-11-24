@@ -4,14 +4,15 @@
 
 #original {
 	float: left;
-	width: 30%;
-	height: 150px;
-	border: 1px solid black;
-}
+	width: 60%;
+}  
 
 #new {
+	margin-left: 5%;
 	float: left;
 	width: 30%;
-	height: 150px;
-	border: 1px solid black;
+}
+
+#original table td {
+	height: 67px;
 }

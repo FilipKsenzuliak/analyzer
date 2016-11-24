@@ -1,9 +1,45 @@
 <div id="parts">
 
-<div id="original">
-</div>
+<% if defined? @data %>
+	<div id="original">
+	  <table class="table table-striped">
+	    <thead>
+	      <tr>
+	        <th>Text</th>
+	        <th>Original</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <% @data.each do |d| %>
+	        <tr>
+	          <td id="pat-text"><%= d[:text] %></td>
+	          <td id="pat-source"><%= d[:name] %></td>
+	        </tr>
+	      <% end %>
+	    </tbody>
+	  </table>
+	</div>
 
-<div id="new">
+	<div id="new">
+	  <table class="table table-striped">
+	    <thead>
+	      <tr>
+	        <th>New</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <% @data.each do |d| %>
+	        <tr>
+	          <td id="pat-source"><%= text_field_tag :log, d[:name], class: "form-control" %></td>
+	        </tr>
+	      <% end %>
+	    </tbody>
+	  </table>
+	</div>
+
+<% else %>
+	<h2> No log was processed yet </h2>
+<% end %>
 
 
 </div>
