@@ -2,12 +2,9 @@ class AnalyzerController < ApplicationController
   # requiring here since gem is called jls-grok and this also needs to be included
   require 'grok-pure'
   require 'pp'
+  add_flash_types :success, :warn
 
   # example log: 01/20/2016 06:15:05.85 w3wp.exe (0x5154) 03194 SharePoint Foundation Micro Trace uls4 Medium Micro Trace Tags: (none) 20fa569d-e927-7055-3239-2cc8d3f9a2b7 
-  # UPRAVIT GROUP ELEMENTS
-  # PRIDAT MOZNO EXPORT PATTERNOV
-  # FORM_PARSER -> redirect_to analyzer/discover -> respond to js a zmenit matched data
-  ##### DEFINOVANY PATTERN ALE NIE JEHO CAST %{USERPID}
   def index
     @hide = ''
   end
@@ -17,7 +14,6 @@ class AnalyzerController < ApplicationController
     @log_text = format(params[:log])
     @include = params[:include]
     log_separator = params[:separator]
-    #@hide = 'hide'
     @log_data = []
     unmatched_text = @log_text.clone
     session[:log] = @log_text
@@ -41,7 +37,7 @@ class AnalyzerController < ApplicationController
 
     # remove matched data from text
     @log_data.map do |data|
-      text = data[:match][:matched_text].first
+      text = data[:match][:matched_text]
       replace = "*" * text.length
       new_text.sub!(text, replace)
       unmatched_text.sub!(text, ' ')
@@ -52,7 +48,7 @@ class AnalyzerController < ApplicationController
     unmatched_text.split(log_separator).each do |d|
       format(d).split(' ').each do |data|
         @log_data << {
-                      match: {name: '<UNKNOWN>', matched_text: [data], sub: []},
+                      match: {name: '<UNKNOWN>', matched_text: data, sub: []},
                       start_at: new_text.index(data),
                       pattern: ''
                      }
@@ -65,9 +61,8 @@ class AnalyzerController < ApplicationController
     @pattern = Pattern.new
     if @log_data.size == 1 && @include
       @pattern = Pattern.where(["text = ?", @log_data.first[:pattern]]).first
-      pp @pattern
       if @pattern.logs.size <= 4
-        log = Log.new(text: @log_data.first[:match][:matched_text].first , pattern_id: @pattern.id)
+        log = Log.new(text: @log_data.first[:match][:matched_text] , pattern_id: @pattern.id)
         log.save
       end
     end
@@ -93,6 +88,82 @@ class AnalyzerController < ApplicationController
     suggestions
   end # def suggest_pattern
 
+  def replace_data
+    @pattern = Pattern.new
+    pattern = params[:sug_pattern]
+    @log_text = params[:log]
+    @log_data = []
+    @include = params[:include]
+
+    @grok = Grok.new
+    parsers = Parser.all
+    parsers.each do |p|
+      @grok.add_pattern(p.name, p.expression)
+    end
+
+    @grok.compile(pattern)
+    m = @grok.match(@log_text)
+
+    check = {}
+    if m
+      pattern.split(' ').each do |part|
+        part.gsub!(/[\{\}\%]/, '')
+
+        # check if there are more parts with same name and match them appropriately
+        if check.key?(part)
+          check[part] += 1
+          capture = m.captures[part][check[part]]
+        else
+          check[part] = 0
+          capture = m.captures[part].first
+        end
+        @log_data << {
+                      match: {name: part, matched_text: capture, sub: []},
+                      start_at: 0,
+                      pattern: @grok.patterns[part]
+                      }
+      end
+
+      ## Modify this or if patterns doesn't match fully print error ##
+      unmatched_text = @log_text.clone
+      new_text = @log_text.clone
+
+      # remove matched data from text
+      @log_data.map do |data|
+        text = data[:match][:matched_text]
+        replace = "*" * text.length
+        new_text.sub!(text, replace)
+        unmatched_text.sub!(text, ' ')
+      end
+
+      # mark unknown data
+      log_separator = ' ' if log_separator == '(space)'
+      unmatched_text.split(log_separator).each do |d|
+        format(d).split(' ').each do |data|
+          @log_data << {
+                        match: {name: '<UNKNOWN>', matched_text: data, sub: []},
+                        start_at: new_text.index(data),
+                        pattern: ''
+                       }
+          replace = "*" * data.length
+          new_text.sub!(data, replace)
+        end
+      end
+
+      result = suggest_pattern(@log_data.map{|item| '%{' + item[:match][:name].to_s + '}'}.join(" "))
+      values = result.sort_by{|k, v| v}.first 3
+
+      @suggestions = []
+      values.each do |k, v|
+        @suggestions << k
+      end
+
+      render :analyze
+    else    
+      redirect_to '/start', warn: "Can't match pattern to the log message"
+    end
+  end
+
   # return max n elements from array
   def max_n(n, &block)
     block = Proc.new { |x,y| x <=> y } if block == nil
@@ -111,8 +182,8 @@ class AnalyzerController < ApplicationController
     log.gsub(/\s+/, " ").gsub(/['"]/, '')
   end # def format
 
-  # modified method taken from jls-grok gem for discovering patterns
-  def discover(text, grok, unmatched = false)
+  # custom tailored method taken from jls-grok gem for discovering patterns
+  def discover(text, grok, custom = false)
     tmp_text = text.clone
     parsed_data = []
 
@@ -174,7 +245,7 @@ class AnalyzerController < ApplicationController
   def complexity(expression)
     score = expression.count("|") # number of branches in the pattern
     score += expression.length # the length of the pattern
-  end # def 
+  end # def complexity
 
   # returns hash of expanded pattern names and values
   # limit - maximum number of recursive iterations
@@ -187,7 +258,7 @@ class AnalyzerController < ApplicationController
       # match all sub-patterns
       matches = regex.scan(/%{\w+}/)
 
-      matched_text = captures[pattern]
+      matched_text = captures[pattern].first
       data = []
       matches.each do |item|
         data << expand_pattern(item, grok, captures, limit-1)

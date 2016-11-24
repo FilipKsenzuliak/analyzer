@@ -4,17 +4,17 @@
 <%= render 'search' %>
 
 <div id="parts">
+  <% if @log_data.size > 1 %>
   <div id="s-arrow"></div>
   <div class="form-group" id="suggestion">
-    <label> Suggestions: </label>
-    <select class="form-control" id="sug-select">
-      <% @suggestions.each do |suggestion| %>
-        <option><%= suggestion %></option>
-      <% end %>
-    </select>
+    <label> Suggested format: </label>
+    <%= form_tag("/replace", method: :get, class: 'suggestion') do %>
+      <%= select_tag :sug_pattern, options_for_select(@suggestions, selected: params[:sug_pattern]), class: "form-control" %>
+      <%= text_field_tag :log, @log_text, class: "hide" %>
+      <%= submit_tag "Try to fill in values", class: "btn btn-primary btn-lg", id: "suggestion" %>
+    <% end %>
   </div>	
 
-<% if @log_data.size > 1 %>
 		<div id="table">
     <div id="divider"></div>
   	  <table class="table analyzer">
@@ -30,7 +30,7 @@
   	    <tbody>
   	    	<% @log_data.each do |data| %>
   		      <tr class="<%= data[:match][:name]%>">
-              <td id="check"><input type="checkbox" class="group" name="newsletter" value="<%= data[:match][:matched_text][0] %>"/></td>
+              <td id="check"><input type="checkbox" class="group" name="newsletter" value="<%= data[:match][:matched_text] %>"/></td>
               <td id="attribute">
                 <div class="input-group">
                   <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value=<%= data[:match][:name] %>>
@@ -45,7 +45,7 @@
                         </a>
                       </li>
                       <li>
-                        <a href="" class="submit-btn">
+                        <a href="" data-toggle="modal" data-target="#splitModal" class="submit-btn">
                           Split expression
                         </a>
                       </li>
@@ -54,7 +54,7 @@
                 </div>
               </td>
               <td id="value">
-                <%= data[:match][:matched_text][0] %>
+                <%= data[:match][:matched_text] %>
               </td>
               <td id="arrow">
                 <% if data[:match][:sub].size != 0 %>
@@ -92,6 +92,8 @@
 
       <div id="g-arrow" style="display:none;"></div>
       <div id="p-arrow" style="display:none"></div>
+
+      <%= button_to 'Event management', '/event', class: "btn btn-primary btn-lg submit-event", :method => :get %>
     </div>
 
     <%= form_for @pattern, url: '/save', remote: true do |f| %>
@@ -137,6 +139,10 @@
       </tbody>
     </table>
   </div>
+
+  <div id="divider"></div>
+  
+  <%= button_to 'Event management', '/event', class: "btn btn-primary btn-lg submit-event", :method => :get %>
 <% end %> <!-- end of if size > 1 -->
 
 
@@ -176,11 +182,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">Choose character to split on:</h4>
+        <h4 class="modal-title">Choose a character to split on:</h4>
       </div>
       <div class="modal-body">
-        <lavel>CAAV</label>
-        <input type="text" id="split">
+        <lavel>(for space write: space)</label>
+        <input type="text" id="split" class="form-control">
 
       </div>
       <div class="modal-footer">

@@ -77,22 +77,6 @@ class LogsController < ApplicationController
     end
   end
 
-  def parsers
-    grok = Grok.new
-    grok.add_patterns_from_file("#{Rails.root}/public/patterns/base")
-
-    @tokens = {}
-    @groups = {}
-
-    grok.patterns.each do |name, expression|
-      if expression.match(/%{.*}/)
-        @groups[name] = expression
-      else
-        @tokens[name] = expression
-      end
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_log

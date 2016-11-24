@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   get "analyzer/group"
   get "/split" => "analyzer#split_element"
   get "/save_text" => "analyzer#save_text"
+  get "/replace" => "analyzer#replace_data"
+
+  # event
+  get '/event' => "event#index"
 
   # session
   get '/login' => 'sessions#new'

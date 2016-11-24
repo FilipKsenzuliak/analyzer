@@ -47,10 +47,12 @@ input[type="checkbox"]{
 }
 
 .group {
+	float: left;
 	margin-top: -15px;
 }
 
 .pattern {
+	float: left;
 	margin: -15px 0 0 10px;
 }
 
@@ -58,12 +60,13 @@ input[type="checkbox"]{
 	background-color: #5cb85c;
 }
 
-#pattern_text, #pattern_source {
+#pattern_text, #pattern_source, #sug_pattern {
 	height: 50px;
 	font-size: 130%;
 }
 
 #options {
+	height: 60px;
 	position: relative;
 }
 
@@ -89,7 +92,7 @@ input[type="checkbox"]{
 	position: absolute;
 	width: 100px;
 	height: 60px;
-	top: -5px;
+	top: 17px;
 	left: -115px;
 	background: image-url('s-arrow.png');
 	display: none;
@@ -102,6 +105,7 @@ input[type="checkbox"]{
 }
 
 #suggestion {
+	margin-top: 10px;
 }
 
 #sug-select {
@@ -112,7 +116,7 @@ input[type="checkbox"]{
 }
 
 #suggestion label {
-	width: 8.7%;
+	width: 15%;
 	display: inline-block;
 }
 
@@ -180,4 +184,10 @@ tr.sub {
 #pattern-source {
 	display: inline-block;
 	width: 18.5%;
+}
+
+.submit-event {
+	margin-top: -15px;
+	font-size: 18px;
+	float: right;
 }

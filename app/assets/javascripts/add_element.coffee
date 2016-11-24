@@ -1,14 +1,13 @@
 $(document).on 'ready page:load', ->
   $('.submit-btn').on 'click', ->
-    $('#splitModal').modal('show')
     value = $(this).closest('td').next().html().trim() 
     element = $(this).closest('tr')
     $('.split-confirm').on 'click', ->
       element.hide()
       split = $('#split').val()
-      console.log 'spliit ' + split
+      if split == 'space'
+        split = ' '
       parts = value.split(split)
-      console.log parts
       for part in parts
         element.after(createPattern(part))
 
@@ -34,7 +33,7 @@ window.createPattern = (data) ->
               </a>
             </li>
             <li>
-              <a href="" class='submit-btn'>
+              <a href="" data-toggle="modal" data-target="#splitModal" class="submit-btn">
                 Split expression
               </a>
             </li>
