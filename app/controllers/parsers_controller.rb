@@ -2,8 +2,10 @@ class ParsersController < ApplicationController
 	require 'grok-pure'
   respond_to :json, :html, :js
   add_flash_types :success, :warn
+  autocomplete :parser, :name, :full => true
 
 	def index
+    @parser = Parser.new
 		if params[:search]
       @parsers = Parser.search(params[:search]) 
     else
@@ -23,6 +25,9 @@ class ParsersController < ApplicationController
 
     @groups.sort_by! {|item| item.name.downcase}
     @tokens.sort_by! {|item| item.name.downcase}
+  end
+
+  def show
   end
 
   # GET /parsers/new

@@ -1,5 +1,6 @@
 class PatternsController < ApplicationController
   before_action :set_pattern, only: [:show, :edit, :update, :destroy]
+  autocomplete :pattern, :text, :full => true
   require 'pp'
   # GET /patterns
   # GET /patterns.json

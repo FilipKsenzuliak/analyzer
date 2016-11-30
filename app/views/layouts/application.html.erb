@@ -13,18 +13,25 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/start">LogMeKnow</a>
     </div>
-    <ul class="nav navbar-nav">
+    
       <% if current_user %>
+      <ul class="nav navbar-nav">
         <li><a href="/start">Log management</a></li>
         <li><a href="/event">Event management</a></li>
         <li><a href="/parsers">Parsers</a></li>
         <li><a href="/patterns">Patterns</a></li>
+        <li><a href="/taxonomy">Event taxonomy</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a>Welcome: <strong><%= current_user.name %></strong></a></li>
         <li><a href="/logout">Log out</a></li>
+      </ul>
       <% else %>
+      <ul class="nav navbar-nav">
         <li><a href="/login">Log in</a></li>
         <li><a href="/signup">Sign up</a></li>
+      </ul>
       <% end %>
-    </ul>
   </div>
 </nav>
 

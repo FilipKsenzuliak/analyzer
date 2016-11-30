@@ -313,5 +313,15 @@
     "expression": "src=%{IP}",
     "blacklist": false,
     "source_group": null
+  },
+  "SMT": {
+    "expression": ".*",
+    "blacklist": false,
+    "source_group": ""
+  },
+  "TEM": {
+    "expression": "",
+    "blacklist": false,
+    "source_group": ""
   }
 }

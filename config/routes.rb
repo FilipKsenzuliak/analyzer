@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   # event
   get '/event' => "event#index"
+  get '/taxonomy' => "event#taxonomy"
 
   # session
   get '/login' => 'sessions#new'
@@ -35,10 +36,14 @@ Rails.application.routes.draw do
   get '/parsers' => 'parsers#index'
   get '/export_parsers' => 'parsers#export'
   post '/form' => 'parsers#form_save'
+  resources :parsers do
+    get :autocomplete_parser_name, :on => :collection
+  end
 
   # patterns
   get '/patterns' => 'patterns#index'
   post '/save' => 'patterns#create_with_log'
+  get 'patterns/autocomplete_pattern_text'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,91 @@
+access;action;Access Event
+account;object;User Account
+alert;action;Alert Event
+allocate;action;Memory/Space Allocation Event
+allow;action;Allow/Permit Event
+app;object;Application
+app;domain;Application-level Event
+audit;action;Audit Event
+audit;service;Audit Service
+auth;service;Authentication Service
+authorize;service;Authorization Service
+backup;action;Backup Event
+backup;service;Backup Service
+bind;action;Bind Event
+bios;object;System BIOS
+block;action;Block Event
+cancel;status;Event Canceled
+clean;action;Clean/Scrub Infected Object Event
+close;action;Close Event
+compress;action;Compress Event
+connect;action
+connection;object;Network Connection
+copy;action;Copy Event
+create;action;Create Event
+db;service;Database Service
+decode;action
+decompress;action;Decompress Event
+decrypt;action
+depress;action
+detect;action;Detect Event
+device;domain;Device-level Event
+disconnect;action
+download;action
+driver;object;Device Driver
+email;object;E-mail
+email;service;E-mail Service
+encode;action
+encrypt;action
+error;status;Event Errored
+event;object;Audit or Event Record
+execute;action;Execute Event
+failure;status;Event Failed
+file;object;File
+filter;action
+find;action;Find Event
+flow;object;Network Flow
+free;action;Free Event
+fw;service;Firewall Service
+get;action
+initialize;action;Initialize Event
+initiate;action;Initiate Event
+install;action
+lock;action
+login;action;Login Event
+logout;action;Logout Event
+memory;object
+modify;action
+move;action;Move Event
+net;domain;Network-based Event
+ongoing;status;Event Ongoing
+open;action
+os;domain;Operating System Event
+packet;object;Network Packet
+process;object;Process
+quarantine;action
+read;action
+release;action
+remove;action
+replicate;action
+resume;action
+rule;object;Firewall, IDS, Malware, or similar Rule
+save;action
+scan;action
+search;action;Search Event
+session;object;User Session
+start;action;Start Event
+stop;action;Stop Event
+success;status;Event Success
+suspend;action
+system;object;System
+thread;object;Processing Thread
+uninstall;action
+unknown;status;Event Status Unknown
+unlock;action
+update;action
+upgrade;action;Upgrade Event
+upload;action
+violate;action;Violate Event
+vuln;object;Vulnerability
+web;service;Web Service
+write;action;Write Event

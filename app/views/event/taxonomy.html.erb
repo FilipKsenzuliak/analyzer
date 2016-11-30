@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<% if @events.present? %>
+<div id="table">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Tag</th>
+        <th>Clasification</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @events.each do |event| %>
+        <tr>
+          <td><%= event.tag %></td>
+          <td><%= event.clasification %></td>
+          <td><%= event.description %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% else %>
+  <p>There are no events containing the term(s) <%= params[:search] %>.</p>
+<% end %>
+
+
+

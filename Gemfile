@@ -6,6 +6,11 @@ gem 'jls-grok'
 # gem for computing levensteihn distance
 gem 'levenshtein', '~> 0.2.2'
 
+gem 'rails4-autocomplete'
+
+# jQuery UI dependency.
+gem 'jquery-ui-rails'
+
 gem 'responders'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'

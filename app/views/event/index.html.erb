@@ -1,6 +1,6 @@
 <div id="parts">
 
-<% if defined? @data %>
+<% unless @data.size == 0 %>
 	<div id="original">
 	  <table class="table table-striped">
 	    <thead>
@@ -38,7 +38,7 @@
 	</div>
 
 <% else %>
-	<h2> No log was processed yet </h2>
+	<h2> No log was processed yet, try to analyze some in log management first</h2>
 <% end %>
 
 
