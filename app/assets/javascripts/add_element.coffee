@@ -1,15 +1,15 @@
-$(document).on 'ready page:load', ->
-  $('.submit-btn').on 'click', ->
-    value = $(this).closest('td').next().html().trim() 
-    element = $(this).closest('tr')
-    $('.split-confirm').on 'click', ->
-      element.hide()
-      split = $('#split').val()
-      if split == 'space'
-        split = ' '
-      parts = value.split(split)
-      for part in parts
-        element.after(createPattern(part))
+$(document).on 'click', '.submit-btn', ->
+  value = $(this).closest('td').next().html().trim() 
+  element = $(this).closest('tr')
+  $('.split-confirm').on 'click', ->
+    element.hide()
+    split = $('#split').val()
+    if split == 'space'
+      split = ' '
+    parts = value.split(split)
+    $('#split').val('')
+    for part in parts
+      element.after(createPattern(part))
 
 $(document).on 'ready page:load', ->
   $('#splitModal').on 'hide.bs.modal', ->

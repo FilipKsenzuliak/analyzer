@@ -1,0 +1,33 @@
+<%= form_tag '/search', :method => 'get', :id => "search_form", remote: true do %>
+  <div id="search-input">
+    <%= text_field_tag :search, params[:search], class: "form-control left" %>
+  </div>
+    <%= submit_tag "Search", class: "btn btn-default left", :id => "help_submit", :name => nil %>
+<% end %>
+
+<% if @parsers.present? %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Expression</th>
+      <th>Blacklist</th>
+      <th>Source group</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @parsers.each do |item| %>
+      <tr>
+        <td id="p-name"><%= item.name %></td>
+        <td id="p-expression"><%= item.expression %></td>
+        <td id="p-blacklist">
+          <%= check_box_tag 'blacklisted', '1', item.blacklist, disabled: true %>
+        </td>
+        <td id="p-group"><%= item.source_group %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <p>There are no parsers containing the term(s) <%= params[:search] %>.</p>
+<% end %>

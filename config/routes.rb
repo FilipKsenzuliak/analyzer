@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   get "/save_text" => "analyzer#save_text"
   get "/replace" => "analyzer#replace_data"
   post "/save_log" => "analyzer#save_log"
-
+  get "/search" => "analyzer#help_search"
+  
   # event
   get '/event' => "event#index"
   get '/taxonomy' => "event#taxonomy"

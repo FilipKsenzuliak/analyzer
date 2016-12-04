@@ -37,6 +37,11 @@
 	  </table>
 	</div>
 
+	<div id="events">
+		<% @event_data.each do |key, val| %>
+			<p> <%= key %> : <%= val %> </p>
+		<% end %>
+	</div>
 <% else %>
 	<h2> No log was processed yet, try to analyze some in log management first</h2>
 <% end %>

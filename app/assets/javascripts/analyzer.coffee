@@ -47,6 +47,11 @@ $(document).on 'ready page:load', ->
       $('#g-arrow').fadeIn(1000)
 
 $(document).on 'ready page:load', ->
+  $("#help_submit").on "click", ->
+    $.get($("#search_form").attr("action"), $("#search_form").serialize(), null, "script")
+    return false
+
+$(document).on 'ready page:load', ->
   $('#s-arrow').fadeIn(1000)
 
 $(document).on 'ready page:load', ->

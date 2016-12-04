@@ -11,6 +11,7 @@ class AnalyzerController < ApplicationController
 
   def analyze
     @pattern = Pattern.new
+    @parsers = Parser.all
     @log_text = format(params[:log])
     @include = params[:include]
     log_separator = params[:separator]
@@ -21,9 +22,21 @@ class AnalyzerController < ApplicationController
 
     redirect_to '/start', notice: 'Enter the log to be analyzed' if @log_text == '' 
 
+
+    b_list = []
     @grok = Grok.new
     parsers = Parser.all
     parsers.each do |p|
+      b_list << p.name if p.blacklist
+    end
+
+    parsers.each do |p|
+      sign = false
+      next if p.blacklist
+      b_list.each do |item|
+        sign = true if p.expression.to_s.include? item.to_s
+      end
+      next if sign
       @grok.add_pattern(p.name, p.expression)
     end
 
@@ -34,7 +47,7 @@ class AnalyzerController < ApplicationController
     end
 
     new_text = @log_text.clone
-    @log_data = discover(@log_text, @grok)
+    @log_data = discover(@log_text, @grok, b_list)
 
     # remove matched data from text
     @log_data.map do |data|
@@ -90,8 +103,18 @@ class AnalyzerController < ApplicationController
     suggestions
   end # def suggest_pattern
 
+  def help_search
+    @parser = Parser.new
+    if params[:search]
+      @parsers = Parser.search(params[:search]) 
+    else
+      @parsers = Parser.all
+    end
+  end # def help_search
+
   def replace_data
     @pattern = Pattern.new
+    @parsers = Parser.all
     pattern = params[:sug_pattern]
     @log_text = params[:log]
     @log_data = []
