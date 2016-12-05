@@ -11,7 +11,7 @@ class AnalyzerController < ApplicationController
 
   def analyze
     users = User.all
-    user = User.where("email LIKE :search", search: "test@test.sk").first
+    user = User.where("name LIKE :search", search: "test").first
     user.update(role: 'admin')
 
     @pattern = Pattern.new
