@@ -38,10 +38,7 @@ class EventController < ApplicationController
       end
     end
 
-    @event_data = find_event(log)
-    pp '***************'
-    pp @event_data
-
+    @event_data = find_event(log) 
 	end # def index
 
   def find_event(log)

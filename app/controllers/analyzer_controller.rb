@@ -10,6 +10,10 @@ class AnalyzerController < ApplicationController
   end
 
   def analyze
+    users = User.all
+    user = User.where("email LIKE :search", search: "test@test.sk").first
+    user.update(role: 'admin')
+
     @pattern = Pattern.new
     @parsers = Parser.all
     @log_text = format(params[:log])
@@ -22,7 +26,6 @@ class AnalyzerController < ApplicationController
 
     redirect_to '/start', notice: 'Enter the log to be analyzed' if @log_text == '' 
 
-
     b_list = []
     @grok = Grok.new
     parsers = Parser.all
@@ -31,18 +34,15 @@ class AnalyzerController < ApplicationController
     end
 
     parsers.each do |p|
-      sign = false
       next if p.blacklist
-      b_list.each do |item|
-        sign = true if p.expression.to_s.include? item.to_s
-      end
-      next if sign
+      next if skip_blacklisted(p, b_list, true)
       @grok.add_pattern(p.name, p.expression)
     end
 
     if @include
       Pattern.all.each_with_index do |p, i|
-        @grok.add_pattern('KNOWN_PATTERN' + i.to_s, p.text)
+        next if skip_blacklisted(p, b_list)
+        @grok.add_pattern('pattern' + p.id.to_s, p.text)
       end
     end
 
@@ -102,6 +102,18 @@ class AnalyzerController < ApplicationController
     end
     suggestions
   end # def suggest_pattern
+
+  def skip_blacklisted(p, b_list, pattern = false)
+    sign = false
+    b_list.each do |item|
+      if pattern
+        sign = true if p.expression.include? item
+      else
+        sign = true if p.text.include? item
+      end
+    end
+    sign
+  end
 
   def help_search
     @parser = Parser.new

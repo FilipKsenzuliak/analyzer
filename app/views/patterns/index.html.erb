@@ -19,8 +19,10 @@
         <th>Pattern</th>
         <th>Source</th>
         <th>Log samples</th>
-        <th></th>
-        <th></th>
+        <% if current_user.role == 'admin' %>
+          <th></th>
+          <th></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -35,16 +37,18 @@
             <% end %> 
             </select>
           </td>
-          <td id="edit">
-            <%= button_to edit_pattern_path(pattern), class: "btn btn-success", :method => :get do %>
-              Edit
-            <% end %>
-          </td>
-          <td id="destroy">
-            <%= button_to pattern, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } do %>
-              Delete
-            <% end %>
-          </td>
+          <% if current_user.role == 'admin' %>
+            <td id="edit">
+              <%= button_to edit_pattern_path(pattern), class: "btn btn-success", :method => :get do %>
+                Edit
+              <% end %>
+            </td>
+            <td id="destroy">
+              <%= button_to pattern, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } do %>
+                Delete
+              <% end %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

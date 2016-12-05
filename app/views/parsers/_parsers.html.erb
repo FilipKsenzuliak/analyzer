@@ -6,8 +6,10 @@
       <th>Expression</th>
       <th>Blacklist</th>
       <th>Source group</th>
+      <% if current_user.role == 'admin' %>
       <th></th>
       <th></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -19,16 +21,18 @@
           <%= check_box_tag 'blacklisted', '1', item.blacklist, disabled: true %>
         </td>
         <td id="p-group"><%= item.source_group %></td>
-        <td id="edit">
-          <%= button_to edit_parser_path(item), class: "btn btn-success", :method => :get do %>
-            Edit
-          <% end %>
-        </td>
-        <td id="destroy">
-          <%= button_to item, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } do %>
-            Delete
-          <% end %>
-        </td>
+        <% if current_user.role == 'admin' %>
+          <td id="edit">
+            <%= button_to edit_parser_path(item), class: "btn btn-success", :method => :get do %>
+              Edit
+            <% end %>
+          </td>
+          <td id="destroy">
+            <%= button_to item, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } do %>
+              Delete
+            <% end %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

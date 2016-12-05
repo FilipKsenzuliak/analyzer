@@ -33,7 +33,15 @@
               <td id="check"><input type="checkbox" class="group" name="newsletter" value="<%= data[:match][:matched_text] %>"/></td>
               <td id="attribute">
                 <div class="input-group">
-                  <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value=<%= data[:match][:name] %>>
+                  <% 
+                     @namee = data[:match][:name]
+                     if @namee.include? 'pattern'
+                      id = @namee.sub('pattern', '')
+                      pattern = Pattern.find(id)
+                      @namee = pattern.text.gsub(/[\{\}\%]/, '')
+                     end
+                  %>
+                  <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value=<%= @namee %>>
                   <div class="input-group-btn">
                     <a class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" href="#">
                       <span class="caret"></span>
