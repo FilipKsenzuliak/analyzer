@@ -10,10 +10,6 @@ class AnalyzerController < ApplicationController
   end
 
   def analyze
-    users = User.all
-    user = User.where("name LIKE :search", search: "test").first
-    user.update(role: 'admin')
-
     @pattern = Pattern.new
     @parsers = Parser.all
     @log_text = format(params[:log])
