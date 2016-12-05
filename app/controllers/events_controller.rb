@@ -1,10 +1,13 @@
 class EventsController < ApplicationController
   require 'csv'
   require 'pp'
+  require 'grok-pure'
 
 	def index
-    pattern = session[:pattern]
-    log = session[:log]
+    @pattern = session[:pattern]
+    @log = session[:log]
+    pattern_source = Pattern.where("text LIKE :search", search: "#{session[:pattern]}%").first  
+    @source = pattern_source.source
     @data = []
 
     ## parse data from log management
@@ -15,11 +18,11 @@ class EventsController < ApplicationController
         grok.add_pattern(p.name, p.expression)
       end
 
-      grok.compile(pattern)
-      m = grok.match(log)
+      grok.compile(@pattern)
+      m = grok.match(@log)
 
       check = {}
-      pattern.split(' ').each do |part|
+      @pattern.split(' ').each do |part|
         part.gsub!(/[\{\}\%]/, '')
 
         # check if there are more parts with same name and match them appropriately
@@ -38,7 +41,7 @@ class EventsController < ApplicationController
       end
     end
 
-    @event_data = find_event(log) 
+    @event_data = find_event(@log) 
 	end # def index
 
   def find_event(log)

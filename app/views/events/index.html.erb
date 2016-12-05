@@ -37,13 +37,46 @@
 	  </table>
 	</div>
 
+	<div id="divider" style="clear:both;"></div>
+
+	<h3> Found events: </h3>
+
+	<div id="divider"></div>
+
 	<div id="events">
-		<% @event_data.each do |key, val| %>
-			<p> <%= key %> : <%= val %> </p>
-		<% end %>
+	  <table class="table table-striped">
+	    <thead>
+	      <tr>
+	        <th>Classification</th>
+	        <th>Tag</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+				<tr>
+					<td style="color:green">Action</td>
+					<td><%= @event_data['action'] %></td>
+				</tr>
+				<tr>
+					<td style="color:red">Domain</td>
+					<td><%= @event_data['domain'] %></td>
+				</tr>
+				<tr>
+					<td style="color:blue">Status</td>
+					<td><%= @event_data['status'] %></td>
+				</tr>
+				<tr>
+					<td style="color:orange">Object</td>
+					<td><%= @event_data['object'] %></td>
+				</tr>
+				<tr>
+					<td style="color:purple">Service</td>
+					<td><%= @event_data['service'] %></td>
+				</tr>
+	    </tbody>
+	  </table>
 	</div>
 	<div id="source">
-		Log is from source:
+		Log is from source: <strong><%= @source %></strong>
 	</div>
 <% else %>
 	<h2> No log was processed yet, try to analyze some in log management first</h2>
