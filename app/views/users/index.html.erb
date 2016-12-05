@@ -1,21 +1,53 @@
-<h1>Signup!</h1>
+<p id="notice"><%= notice %></p>
+<p id="warn" style="color: red;"><%= warn %></p>
 
-<%= form_for :user, url: '/users' do |f| %>
+<div class="form-group activity" id="log-patterns">
+	<%= form_tag("/users", method: "get") do %>
+		<div id="search-input">
+		  <%= text_field_tag :search, params[:search], class: "form-control left" %>
+		</div>
+	  <%= submit_tag "Search", class: "btn btn-default left", id: "search-submit" %>
+	<% end %>
+</div>
 
-  Name: <%= f.text_field :name %>
-  Email: <%= f.text_field :email %>
-  Password: <%= f.password_field :password %>
-  Password Confirmation: <%= f.password_field :password_confirmation %>
-  <%= f.submit "Submit" %>
-
+<% if current_user.role == 'admin' %>
+	<% if @users.present? %>
+	<div id="table">
+	  <table class="table table-striped">
+	    <thead>
+	      <tr>
+	        <th>Name</th>
+	        <th>Email</th>
+	        <th>Allow edit/destroy</th>
+	        <th></th>
+	        <th></th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <% @users.each do |user| %>
+	        <tr>
+	          <td id="p-name"><%= user.name %></span></td>
+	          <td id="p-expression"><%= user.email %></span></td>
+	          <td>
+	          	<% allow = (user.role == 'admin' ? true : false) %>
+	          	<%= check_box_tag 'allow', '1', allow, disabled: true %>
+	          </td>
+            <td id="edit">
+              <%= button_to edit_user_path(user), class: "btn btn-success", :method => :get do %>
+                Edit
+              <% end %>
+            </td>
+            <td id="destroy">
+              <%= button_to user, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } do %>
+                Delete
+              <% end %>
+            </td>
+	        </tr>
+	      <% end %>
+	    </tbody>
+	  </table>
+	</div>
+	<% else %>
+	  <p>There are no users containing the term(s) <%= params[:search] %>.</p>
+	<% end %>
 <% end %>
-
-<% if current_user %>
-  Signed in as <%= current_user.name %> | <%= link_to "Logout", '/logout' %>
-<% else %>
-  <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
-<% end %>
-
-<button>
-<%= link_to "login", '/login', :id => "login" %>
-</button>

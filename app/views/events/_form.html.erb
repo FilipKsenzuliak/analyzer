@@ -1,0 +1,12 @@
+<%= form_tag '/save_synonym', method: :post do %>
+	<div class="form-group">
+		<%= label_tag :tag, "Tag:" %>
+		<% event_data = Event.find(params[:id]) %>
+    <%= text_field_tag :tag, event_data.tag, class: "form-control", disabled: true %>
+    <%= label_tag :text, "Synonym:" %>
+	  <%= text_field_tag :text, '', class: "form-control" %>
+	  <%= text_field_tag :id, params[:id], class: 'hide' %>
+    <%= submit_tag "Submit", class: "btn btn-default btn-lg", id: "pattern-create" %>
+  </div>
+<% end %>
+

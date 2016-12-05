@@ -34,14 +34,14 @@
               <td id="attribute">
                 <div class="input-group">
                   <% 
-                     @namee = data[:match][:name]
-                     if @namee.include? 'pattern'
-                      id = @namee.sub('pattern', '')
+                     @name = data[:match][:name]
+                     if @name.include? 'pattern'
+                      id = @name.sub('pattern', '')
                       pattern = Pattern.find(id)
-                      @namee = pattern.text.gsub(/[\{\}\%]/, '')
+                      @name = pattern.text.gsub(/[\{\}\%]/, '')
                      end
                   %>
-                  <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value=<%= @namee %>>
+                  <input type="text" class="form-control" aria-label="Text input with dropdown button" id="expand" value='<%= @name %>'>
                   <div class="input-group-btn">
                     <a class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" href="#">
                       <span class="caret"></span>

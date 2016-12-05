@@ -1,4 +1,4 @@
-class EventController < ApplicationController
+class EventsController < ApplicationController
   require 'csv'
   require 'pp'
 
@@ -51,7 +51,11 @@ class EventController < ApplicationController
   end # def find_event
 
   def taxonomy
-    @events = Event.all
+    if params[:search]
+      @events = Event.search(params[:search]) 
+    else
+      @events = Event.all
+    end
 
     # CSV.foreach(File.path(Rails.root.join('public', 'patterns', 'taxonomy.csv'))) do |row|
     #   event_data = row[0].split(';')
@@ -64,6 +68,22 @@ class EventController < ApplicationController
     #   event.save
     # end
   end # def taxonomy
+
+  def save_synonym
+    @event = Event.new
+    synonym = Synonym.new(text: params[:text], event_id: params[:id])
+
+    respond_to do |format|
+      if synonym.save
+        format.html { redirect_to '/taxonomy', notice: 'Synonym was successfully created.' }
+        format.json { render :show, status: :created, location: @event }
+      else
+        format.js
+        format.html { redirect_to '/events/new', notice: 'Synonym is already present in the database.' }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   def show
   end

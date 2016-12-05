@@ -35,7 +35,10 @@ window.pat = ->
   $('#p-arrow').fadeIn(1000)
   values = []
   $('.table tr:visible td:nth-child(2)>div>input').each ->
-    values.push "%{" + $(this).val().toString() + "}"
+    multiString = $(this).val()
+    data = multiString.split(" ")
+    for i in [0...(data.length)]
+      values.push "%{" + data[i].toString() + "}"
   separator = $("#separator").val().toString()
   if separator == '(space)'
     separator = ' '
@@ -43,7 +46,7 @@ window.pat = ->
 
 $(document).on 'ready page:load', ->
   $(".group").on "click", ->
-    if $( "input:checked" ).length == 0
+    if $( "#table .analyzer tr input:checked" ).length == 0
       $('#g-arrow').fadeIn(1000)
 
 $(document).on 'ready page:load', ->

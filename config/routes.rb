@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :logs
   resources :users
   resources :parsers
+  resources :events
   
   root "sessions#new"
 
@@ -21,8 +22,9 @@ Rails.application.routes.draw do
   get "/search" => "analyzer#help_search"
   
   # event
-  get '/event' => "event#index"
-  get '/taxonomy' => "event#taxonomy"
+  get '/event' => "events#index"
+  get '/taxonomy' => "events#taxonomy"
+  post '/save_synonym' => "events#save_synonym"
 
   # session
   get '/login' => 'sessions#new'
@@ -32,6 +34,7 @@ Rails.application.routes.draw do
   # user
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
+  get '/users' => 'users#index'
 
   # parsers
   get '/parsers' => 'parsers#index'

@@ -1,0 +1,71 @@
+<p id="notice"><%= notice %></p>
+
+<div class="form-group activity" id="log-patterns">
+  <%= form_tag("/taxonomy", method: "get") do %>
+    <div id="search-input">
+      <%= text_field_tag :search, params[:search], class: "form-control left" %>
+    </div>
+    <%= submit_tag "Search", class: "btn btn-default left", id: "search-submit" %>
+  <% end %>
+</div>
+
+<% if @events.present? %>
+
+<div id="table">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Tag</th>
+        <th>Clasification</th>
+        <th>Description</th>
+        <th>Synonyms</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @events.each do |event| %>
+        <% #color = (event.original == true ? 'blue' : 'red') %>
+        <tr>
+          <td id="e-tag"><%= event.tag %></td>
+          <%
+          case event.clasification
+          when 'action'
+            color = 'green'
+          when 'domain'
+            color = 'red'
+          when 'status'
+            color = 'blue'
+          when 'object'
+            color = 'orange'
+          when 'service'
+            color = 'purple'
+          else
+            color = 'grey'
+          end
+          %>
+          <td id="e-class" style="color:<%= color %>"><%= event.clasification %></td>
+          <td id="e-desc"><%= event.description %></td>
+          <td id="e-synonyms">
+            <select class="form-control">
+            <% event.synonyms.each do |synonym| %>
+              <option><%= synonym.text %></option>
+            <% end %> 
+            </select>
+          </td>
+          <td id="add-synonym">
+            <%= button_to edit_event_path(event), class: "btn btn-primary", :method => :get do %>
+              Add synonym
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% else %>
+  <p>There are no events containing the term(s) <%= params[:search] %>.</p>
+<% end %>
+
+
+
+

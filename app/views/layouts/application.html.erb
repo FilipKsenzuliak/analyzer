@@ -21,6 +21,9 @@
         <li><a href="/parsers">Parsers</a></li>
         <li><a href="/patterns">Patterns</a></li>
         <li><a href="/taxonomy">Event taxonomy</a></li>
+        <% if current_user.role == 'admin' %>
+          <li><a href="/users">Users</a></li>
+        <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a>Welcome: <strong><%= current_user.name %></strong></a></li>

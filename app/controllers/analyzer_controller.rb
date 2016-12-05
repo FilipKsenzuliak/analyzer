@@ -316,6 +316,6 @@ class AnalyzerController < ApplicationController
   def save_log
     session[:log] = params[:log]
     session[:pattern] = params[:pattern]
-    redirect_to :controller => 'event', :action => 'index' 
+    redirect_to :controller => 'events', :action => 'index' 
   end
 end

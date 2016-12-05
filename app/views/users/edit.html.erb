@@ -1,6 +1,9 @@
-<h1>Editing User</h1>
+<div id="new-user">
+	<h1>Editing User</h1>
 
-<%= render 'form' %>
+	<%= render 'form' %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+	<%= button_to users_path, class: "btn btn-default btn-lg edit-pattern", :method => :get do %>
+	  Back
+	<% end %>
+</div>
