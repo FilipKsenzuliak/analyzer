@@ -50,8 +50,14 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    u_params = user_params.clone
+    if params[:allow] == '1'
+      u_params[:role] = 'admin'
+    else
+      u_params[:role] = 'user'
+    end
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(u_params)
         format.html { redirect_to '/users', notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else

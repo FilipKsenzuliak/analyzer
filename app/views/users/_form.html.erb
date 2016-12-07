@@ -5,7 +5,8 @@
     <%= label_tag(:email, "Email:") %>
     <%= f.text_field :email, class: "form-control" %>
     <%= label_tag(:role, "Allow add/destroy:") %>
-    <%= f.check_box :role, class: "form-control" %>
+    <% allow = (@user.role == 'admin' ? true : false) %>
+	  <%= check_box_tag :allow, '1', allow %>
     <%= f.submit "Submit", class: "btn btn-default btn-lg", id: "pattern-create" %>
   </div>
 <% end %>
