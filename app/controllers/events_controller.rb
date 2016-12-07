@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   require 'csv'
   require 'pp'
   require 'grok-pure'
+  add_flash_types :success, :warn
 
 	def index
     @pattern = session[:pattern]
@@ -49,6 +50,9 @@ class EventsController < ApplicationController
     data = {}
     events.each do |event|
       data[event.clasification] = event.tag if log.include? event.tag
+      event.synonyms.each do |synonym|
+        data[event.clasification] = event.tag if log.include? synonym.text
+      end
     end
     data
   end # def find_event

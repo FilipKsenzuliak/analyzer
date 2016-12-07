@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-	has_many :synonyms
+	has_many :synonyms, dependent: :destroy
 
 	def self.search(search)
     if search
