@@ -2,7 +2,7 @@
 	<div class="form-group">
 		<div id="analyze">
 		  <%= label_tag(:log, "Log to be analyzed: [test sample: 2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1 ]") %>
-		  <%= text_field_tag :log, @log_text, class: "form-control"%>
+		  <%= text_area_tag :log, @log_text, class: "form-control", id: "analyze-log" %>
 		</div>
 		<div id="separate">
 		  <%= label_tag(:separator, "Split on:") %>

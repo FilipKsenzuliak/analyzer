@@ -38,7 +38,14 @@
 }
 
 #analyze {
+	float: left;
 	width: 80%;
+}
+
+#analyze-log {
+	font-size: 130%;
+	max-width: 100%;
+	height: 50px;
 }
 
 #separate {
