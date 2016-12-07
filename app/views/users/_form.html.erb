@@ -4,9 +4,11 @@
     <%= f.text_area :name, class: "form-control"%>
     <%= label_tag(:email, "Email:") %>
     <%= f.text_field :email, class: "form-control" %>
-    <%= label_tag(:role, "Allow add/destroy:") %>
-    <% allow = (@user.role == 'admin' ? true : false) %>
-	  <%= check_box_tag :allow, '1', allow %>
-    <%= f.submit "Submit", class: "btn btn-default btn-lg", id: "pattern-create" %>
+    <div id="user-check">
+      <%= label_tag(:role, "Allow add/destroy:") %>
+      <% allow = (@user.role == 'admin' ? true : false) %>
+  	  <%= check_box_tag :allow, '1', allow %>
+    </div>
+    <%= f.submit "Submit", class: "btn btn-default btn-lg", id: "user-create" %>
   </div>
 <% end %>
