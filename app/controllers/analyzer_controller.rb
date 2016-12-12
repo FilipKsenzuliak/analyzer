@@ -158,11 +158,9 @@ class AnalyzerController < ApplicationController
                       }
       end
 
-      ## Modify this or if patterns doesn't match fully print error ##
       unmatched_text = @log_text.clone
       new_text = @log_text.clone
 
-      # remove matched data from text
       @log_data.map do |data|
         text = data[:match][:matched_text]
         replace = "*" * text.length
@@ -170,7 +168,6 @@ class AnalyzerController < ApplicationController
         unmatched_text.sub!(text, ' ')
       end
 
-      # mark unknown data
       log_separator = ' ' if log_separator == '(space)'
       unmatched_text.split(log_separator).each do |d|
         format(d).split(' ').each do |data|

@@ -3,3 +3,5 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 
+$(document).on 'ready page:load', ->
+  $('#event-arrow').fadeIn(1000)

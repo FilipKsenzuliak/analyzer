@@ -42,7 +42,9 @@ class EventsController < ApplicationController
       end
     end
 
-    @event_data = find_event(@log) 
+    if session[:log]
+      @event_data = find_event(@log) 
+    end
 	end # def index
 
   def find_event(log)

@@ -104,7 +104,7 @@
       <%= form_tag '/save_log', method: :post do %>
         <%= text_field_tag :log, @log_text, :class => "hide" %>
         <%= text_field_tag :pattern, @pat, :class => "hide" %>
-        <%= submit_tag "Event management", name: nil, class: "btn btn-primary btn-lg submit-event" %>
+        <%= submit_tag "Event management", name: nil, class: "btn btn-primary btn-lg submit-event dis-event", :'data-toggle' => 'tooltip', :'title' => 'Pattern contain UNKNOWN values' %>
       <% end %>
     </div>
 

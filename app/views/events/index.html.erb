@@ -39,11 +39,11 @@
 
 	<div id="divider" style="clear:both;"></div>
 
-	<h3> Found events: </h3>
-
-	<div id="divider"></div>
+	<h3> Events: </h3>
 
 	<div id="events">
+		<div id="event-arrow" style="display:none"></div>
+
 	  <table class="table table-striped">
 	    <thead>
 	      <tr>
@@ -54,29 +54,30 @@
 	    <tbody>
 				<tr>
 					<td style="color:green">Action</td>
-					<td><%= @event_data['action'] %></td>
+					<td><%= @event_data['action'] || '---' %></td>
 				</tr>
 				<tr>
 					<td style="color:red">Domain</td>
-					<td><%= @event_data['domain'] %></td>
+					<td><%= @event_data['domain'] || '---' %></td>
 				</tr>
 				<tr>
 					<td style="color:blue">Status</td>
-					<td><%= @event_data['status'] %></td>
+					<td><%= @event_data['status'] || '---' %></td>
 				</tr>
 				<tr>
 					<td style="color:orange">Object</td>
-					<td><%= @event_data['object'] %></td>
+					<td><%= @event_data['object'] || '---' %></td>
 				</tr>
 				<tr>
 					<td style="color:purple">Service</td>
-					<td><%= @event_data['service'] %></td>
+					<td><%= @event_data['service'] || '---' %></td>
 				</tr>
 	    </tbody>
 	  </table>
 	</div>
 	<div id="source">
-		Log is from source: <strong><%= @source %></strong>
+		<% text = (@source != '' ? @source : 'not stated') %>
+		Log is from source: <strong><%= text %></strong>
 	</div>
 <% else %>
 	<h2> No log was processed yet, try to analyze some in log management first</h2>

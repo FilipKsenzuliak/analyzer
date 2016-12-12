@@ -10,6 +10,20 @@ $(document).on 'ready page:load', ->
     else
       button.attr('id', '')
 
+
+$(document).on 'ready page:load', ->
+  $('.table tr:visible td:nth-child(2)>div>input').on "keyup", ->
+    values = []
+    $('.table tr:visible td:nth-child(2)>div>input').each ->
+      values.push($(this).val())
+    if $.inArray('<UNKNOWN>', values) > -1
+      $(".submit-event").prop('disabled', true)
+      $('[data-toggle="tooltip"]').attr('title', 'Pattern contain UNKNOWN values')
+      $('[data-toggle="tooltip"]').tooltip()
+    else
+      $(".submit-event").prop('disabled', false)
+      $('[data-toggle="tooltip"]').removeAttr('title')
+
 window.group = ->
   if $( "#table .analyzer tr" ).length >= 2
     values = []
@@ -77,5 +91,6 @@ $(document).on 'ready page:load', ->
   elements.each ->
     if $(this).attr('class') != '<UNKNOWN>'
       $(this).find("td:nth-child(2)>div>input").css('background-color', '#b2e8ae')
+
 
 
