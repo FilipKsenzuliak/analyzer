@@ -28,7 +28,7 @@ class EventsController < ApplicationController
 
       check = {}
 
-      event =  pattern_source.event_pattern.split(' ')
+      event =  pattern_source.event_pattern.split(' ') if pattern_source.event_pattern != nil
       @pattern.split(' ').each_with_index do |part, i|
         part.gsub!(/[\{\}\%]/, '')
 
@@ -44,7 +44,7 @@ class EventsController < ApplicationController
           end
         end
         name = part
-        name = event[i] if event.size != 0
+        name = event[i] if pattern_source.event_pattern != nil
         @data << { name: part, text: capture, event: name }
       end
     end
