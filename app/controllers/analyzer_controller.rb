@@ -313,6 +313,15 @@ class AnalyzerController < ApplicationController
   def save_log
     session[:log] = params[:log]
     session[:pattern] = params[:pattern]
+
+    data = {:message => "Success"}
+    render :json => data, :status => :ok
+  end
+
+  def save_log_success
+    session[:log] = params[:log]
+    session[:pattern] = params[:pattern]
+
     redirect_to :controller => 'events', :action => 'index' 
   end
 end

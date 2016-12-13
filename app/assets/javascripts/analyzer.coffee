@@ -92,5 +92,28 @@ $(document).on 'ready page:load', ->
     if $(this).attr('class') != '<UNKNOWN>'
       $(this).find("td:nth-child(2)>div>input").css('background-color', '#b2e8ae')
 
+window.to_event = ->
+  values = []
+  $('.table tr:visible td:nth-child(2)>div>input').each ->
+    multiString = $(this).val()
+    data = multiString.split(" ")
+    for i in [0...(data.length)]
+      values.push "%{" + data[i].toString() + "}"
+  separator = $("#separator").val().toString()
+  if separator == '(space)'
+    separator = ' '
+  log_data = $('#analyze-log').val()
+  $.ajax '/save_log' , 
+  type: "POST",
+  dataType: "JSON",
+  data: 
+    pattern: values.join(separator)
+    log: log_data
+  asnyc: false,
+  success: (data) ->
+    console.log(data)
+    window.location = '/event'
+
+
 
 

@@ -101,11 +101,7 @@
       <div id="g-arrow" style="display:none;"></div>
       <div id="p-arrow" style="display:none"></div>
 
-      <%= form_tag '/save_log', method: :post do %>
-        <%= text_field_tag :log, @log_text, :class => "hide" %>
-        <%= text_field_tag :pattern, @pat, :class => "hide" %>
-        <%= submit_tag "Event management", name: nil, class: "btn btn-primary btn-lg submit-event dis-event", :'data-toggle' => 'tooltip', :'title' => 'Pattern contain UNKNOWN values' %>
-      <% end %>
+      <input type="button" onclick="to_event()" class="btn btn-primary btn-lg pattern submit-event" value="Event management"/>
     </div>
 
     <%= form_for @pattern, url: '/save', remote: true do |f| %>
@@ -154,7 +150,7 @@
 
   <div id="divider"></div>
   
-  <%= form_tag '/save_log', method: :post do %>
+  <%= form_tag '/save_log_success', method: :post do %>
     <%= text_field_tag :log, @log_text, :class => "hide" %>
     <%= text_field_tag :pattern, @pattern.text, :class => "hide" %>
     <%= submit_tag "Event management", name: nil, class: "btn btn-primary btn-lg submit-event" %>

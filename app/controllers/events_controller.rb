@@ -7,8 +7,12 @@ class EventsController < ApplicationController
 	def index
     @pattern = session[:pattern]
     @log = session[:log]
-    pattern_source = Pattern.where("text LIKE :search", search: "#{session[:pattern]}%").first  
-    @source = pattern_source.source
+    pattern_source = Pattern.where("text LIKE :search", search: "#{session[:pattern]}%").first 
+    if pattern_source == nil
+      @warning = "WARNING: log pattern is not recognized. You won't be able to save event pattern! (To resolve this, process valid log pattern)"
+    else
+      @source = pattern_source.source 
+    end
     @data = []
 
     ## parse data from log management
@@ -23,10 +27,11 @@ class EventsController < ApplicationController
       m = grok.match(@log)
 
       check = {}
-      @pattern.split(' ').each do |part|
+
+      event =  pattern_source.event_pattern.split(' ')
+      @pattern.split(' ').each_with_index do |part, i|
         part.gsub!(/[\{\}\%]/, '')
 
-        # check if there are more parts with same name and match them appropriately
         if check.key?(part)
           check[part] += 1
           capture = m.captures[part][check[part]]
@@ -38,7 +43,9 @@ class EventsController < ApplicationController
             capture = '<UNKNOWN>'
           end
         end
-        @data << { name: part, text: capture }
+        name = part
+        name = event[i] if event.size != 0
+        @data << { name: part, text: capture, event: name }
       end
     end
 
@@ -92,6 +99,14 @@ class EventsController < ApplicationController
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def save_event
+    pattern = Pattern.where("text LIKE :search", search: "#{session[:log_pattern]}%").first
+    pattern.update_attributes(event_pattern: params[:event_pattern])
+
+    data = {:message => "Success"}
+    render :json => data, :status => :ok
   end
 
   def show

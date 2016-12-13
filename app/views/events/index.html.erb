@@ -1,3 +1,5 @@
+<div id="warn" style="color:#e36812;"><%= @warning %></div>
+<div id="notification" style="color:green;"></div>
 <div id="parts">
 
 <% unless @data.size == 0 %>
@@ -6,7 +8,7 @@
 	    <thead>
 	      <tr>
 	        <th>Text</th>
-	        <th>Original</th>
+	        <th>Log data</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -19,23 +21,36 @@
 	    </tbody>
 	  </table>
 	</div>
+	<div class="log-pattern hide"><%= @pattern %></div>
 
 	<div id="new">
 	  <table class="table table-striped">
 	    <thead>
 	      <tr>
-	        <th>New</th>
+	        <th>Event data</th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	      <% @data.each do |d| %>
 	        <tr>
-	          <td id="pat-source"><%= text_field_tag :log, d[:name], class: "form-control" %></td>
+	          <td id="pat-source"><%= text_field_tag :log, d[:event], class: "form-control" %></td>
 	        </tr>
 	      <% end %>
 	    </tbody>
 	  </table>
 	</div>
+
+	<div id="event-options">
+    <input type="button" onclick="event_pattern()" class="btn btn-primary btn-lg left" value="Save event data to log pattern"/>
+
+    <%= form_for @pattern, url: '/save', remote: true do |f| %>
+    	<div id="search-input">
+        <%= f.text_field :tag, placeholder: 'tag', class: "form-control left", id: "output-tag" %>
+      </div>
+        <%= f.submit "Add tag", class: "btn btn-primary btn-lg left", id: "add-tag" %>
+    <% end %>
+
+  </div>
 
 	<div id="divider" style="clear:both;"></div>
 
@@ -76,7 +91,7 @@
 	  </table>
 	</div>
 	<div id="source">
-		<% text = (@source != '' ? @source : 'not stated') %>
+		<% text = ((@source != '' && @source) ? @source : 'not stated') %>
 		Log is from source: <strong><%= text %></strong>
 	</div>
 <% else %>

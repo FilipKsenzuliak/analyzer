@@ -3,7 +3,7 @@
 
   <%= form_tag("/patterns", method: "get") do %>
     <div id="search-input">
-      <%= text_field_tag :search, params[:search], class: "form-control left" %>
+      <%= text_field_tag :search, params[:search], placeholder: 'search', class: "form-control left" %>
     </div>
     <%= submit_tag "Search", class: "btn btn-default left", id: "search-submit" %>
   <% end %>

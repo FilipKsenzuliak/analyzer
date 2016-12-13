@@ -20,12 +20,14 @@ Rails.application.routes.draw do
   get "/save_text" => "analyzer#save_text"
   get "/replace" => "analyzer#replace_data"
   post "/save_log" => "analyzer#save_log"
+  post "/save_log_success" => "analyzer#save_log_success"
   get "/search" => "analyzer#help_search"
   
   # event
   get '/event' => "events#index"
   get '/taxonomy' => "events#taxonomy"
   post '/save_synonym' => "events#save_synonym"
+  post '/save_event' => "events#save_event"
 
   # session
   get '/login' => 'sessions#new'
