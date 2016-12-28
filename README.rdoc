@@ -3,18 +3,20 @@
 This application serves as helping tool for log parsing.
 
 
-To run this application:
+
+To run this application you need:
+ruby (used version): 2.1.2
+rails (used version): 4.2.6
+and installed postgreSQL database with the gem 'bundler'
 
 1. clone current repository or download it in form of a .zip file.
 2. go to the root direcotry and download all dependencies (possible with command):
-   ```
-   bundle install
-   ```
+   'bundle install'
 3. create database:
-   rake db:create
+   'rake db:create'
 4. setup database:
-   rake db:setup
+   'rake db:setup'
 5. run the server:
-   rails s -p (port)
+   'rails s'
 
 default port is 3000.
