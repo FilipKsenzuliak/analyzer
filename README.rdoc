@@ -1,28 +1,18 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This application serves as helping tool for log parsing.
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+To run this application:
+
+1. clone current repository or download it in form of a .zip file.
+2. go to the root direcotry and download all dependencies (possible with command):
+   bundle install
+3. create database:
+   rake db:create
+4. setup database:
+   rake db:setup
+5. run the server:
+   rails s -p (port)
+
+default port is 3000.
