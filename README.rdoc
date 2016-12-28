@@ -6,14 +6,15 @@ This application serves as helping tool for log parsing.
 To run this application:
 
 1. clone current repository or download it in form of a .zip file.
-2. go to the root direcotry and download all dependencies (possible with command): <br />
-   <em>bundle install</em>
-3. create database: <br />
-   <em>rake db:create</em>
-4. setup database: <br />
-   <em>rake db:setup</em>
-5. run the server: <br />
-   <em>rails s -p (port)</em>
+2. go to the root direcotry and download all dependencies (possible with command):
+   ```
+   bundle install
+   ```
+3. create database:
+   rake db:create
+4. setup database:
+   rake db:setup
+5. run the server:
+   rails s -p (port)
 
-<br />
 default port is 3000.
