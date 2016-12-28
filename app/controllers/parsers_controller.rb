@@ -78,13 +78,22 @@ class ParsersController < ApplicationController
     patterns = Pattern.all
     pattern_names = []
     able = true
+    name_changed = false
 
     patterns.each do |pattern|
       pattern_names << pattern.text
     end
     
-    if pattern_names.include? '%{' + @parser.name.to_s + '}'
-      able = false
+    if parser_params[:name] != @parser.name
+      name_changed = true
+    end
+
+    if name_changed
+      pattern_names.each do |item|
+        if item.include? '%{' + @parser.name.to_s + '}'
+          able = false
+        end
+      end
     end
 
     respond_to do |format|
@@ -97,7 +106,7 @@ class ParsersController < ApplicationController
           format.json { render json: @parser.errors, status: :unprocessable_entity }
         end
       else
-        format.html { redirect_to edit_parser_path(@parser), warn: "Can't update parser because it is present in pattern(s)" }
+        format.html { redirect_to edit_parser_path(@parser), warn: "Can't update parser name because it is present in pattern(s)" }
       end
     end
   end
@@ -112,8 +121,10 @@ class ParsersController < ApplicationController
       pattern_names << pattern.text
     end
 
-    if pattern_names.include? '%{' + @parser.name.to_s + '}'
-      able = false
+    pattern_names.each do |item|
+      if item.include? '%{' + @parser.name.to_s + '}'
+        able = false
+      end
     end
 
     respond_to do |format|

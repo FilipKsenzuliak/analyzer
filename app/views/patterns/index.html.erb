@@ -32,7 +32,7 @@
           <td id="pat-source"><%= pattern.source %></span></td>
           <td id="pat-logs">
             <select class="form-control">
-            <% pattern.logs.each do |log| %>
+            <% pattern.logs.limit(5).each do |log| %>
               <option><%= log.text %></option>
             <% end %> 
             </select>

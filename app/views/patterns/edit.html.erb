@@ -1,9 +1,47 @@
 <div id="new-pattern">
-	<h1>Editing Pattern</h1>
+  <h1>Editing Pattern</h1>
 
-	<%= render 'form' %>
+  <%= render 'form' %>
 
-	<%= button_to patterns_path, class: "btn btn-default btn-lg edit-pattern", :method => :get do %>
-	  Back
-	<% end %>
+  <%= button_to patterns_path, class: "btn btn-default btn-lg edit-pattern", :method => :get do %>
+    Back
+  <% end %>
+</div>
+
+<div id="pattern-samples">
+
+  <div id="table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th> Corresponding event data: </th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <% data = (@pattern.try(:event_pattern) ? @pattern.event_pattern : '') %>
+            <% data.gsub!(/ /, ' - ') %>
+            <td id="event"><strong> <%= (data != '' ? data : 'no event data') %> </strong></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="divider"></div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th> Log samples: </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @pattern.logs.each do |log| %>
+        <tr>
+          <td><%= log.text %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
 </div>

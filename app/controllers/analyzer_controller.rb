@@ -71,10 +71,10 @@ class AnalyzerController < ApplicationController
     @pattern = Pattern.new
     if @log_data.size == 1 && @include
       @pattern = Pattern.where(["text = ?", @log_data.first[:pattern]]).first
-      if @pattern.logs.size <= 4
+      # if @pattern.logs.size <= 4
         log = Log.new(text: @log_data.first[:match][:matched_text] , pattern_id: @pattern.id)
         log.save
-      end
+      # end
     end
 
     @log_data.sort_by! {|data| data[:start_at]}

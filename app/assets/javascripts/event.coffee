@@ -25,7 +25,7 @@ window.event_pattern = ->
 
 $(document).on 'ready page:load', ->
 	if $('#warn').html() != ''
-		$('.event-data').prop('disabled', true)
+		$('#event-options input').prop('disabled', true)
 
 window.event_tag = ->
   $('.output-tag').show(200)

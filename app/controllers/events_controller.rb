@@ -28,11 +28,15 @@ class EventsController < ApplicationController
 
       check = {}
 
-      event =  pattern_source.event_pattern.split(' ') if pattern_source.event_pattern != nil
+      if pattern_source.try(:event_pattern)
+        event =  pattern_source.event_pattern.split(' ') 
+      else 
+        event = []
+      end
       @pattern.split(' ').each_with_index do |part, i|
         part.gsub!(/[\{\}\%]/, '')
 
-        if check.key?(part)
+        if false#check.key?(part)
           check[part] += 1
           capture = m.captures[part][check[part]]
         else
@@ -44,7 +48,7 @@ class EventsController < ApplicationController
           end
         end
         name = part
-        name = event[i] if pattern_source.event_pattern != nil
+        name = event[i] if pattern_source.try(:event_pattern)
         @data << { name: part, text: capture, event: name }
       end
     end
@@ -58,9 +62,9 @@ class EventsController < ApplicationController
     events = Event.all
     data = {}
     events.each do |event|
-      data[event.clasification] = event.tag if log.include? event.tag
+      data[event.clasification] = event.tag if log =~ /\b#{event.tag}\b/i
       event.synonyms.each do |synonym|
-        data[event.clasification] = event.tag if log.include? synonym.text
+        data[event.clasification] = event.tag if log =~ /\b#{synonym.text}\b/i
       end
     end
     data
@@ -102,7 +106,7 @@ class EventsController < ApplicationController
   end
 
   def save_event
-    pattern = Pattern.where("text LIKE :search", search: "#{session[:log_pattern]}%").first
+    pattern = Pattern.where("text LIKE :search", search: "#{session[:pattern]}%").first
     pattern.update_attributes(event_pattern: params[:event_pattern])
 
     data = {:message => "Success"}

@@ -30,16 +30,34 @@ class PatternsController < ApplicationController
   # POST /patterns.json
   def create
     @pattern = Pattern.new(pattern_params)
+    parsers = Parser.all
+    parser_names = []
+    parts = @pattern[:text].split(/[\s|\/]/)
+    @recognized = true
+    @unknown = ''
+
+    parsers.each do |parser|
+      parser_names << parser.name
+    end
+
+    parts.each do |part|
+      unless parser_names.include? part.gsub(/[\{\}\%]/, '')
+        @unknown = part
+        @recognized = false
+      end
+    end
 
     respond_to do |format|
-      if @pattern.save
-        
-        format.html { redirect_to '/patterns', notice: 'Pattern was successfully created.' }
-        format.json { render :show, status: :created, location: @pattern }
+      if @uknown == ''
+        if @pattern.save
+          format.html { redirect_to '/patterns', notice: 'Pattern was successfully created.' }
+          format.json { render :show, status: :created, location: @pattern }
+        else
+          format.html { redirect_to '/patterns/new', notice: 'Pattern is already present in the database.' }
+          format.json { render json: @pattern.errors, status: :unprocessable_entity }
+        end
       else
-        format.js
-        format.html { redirect_to '/patterns/new', notice: 'Pattern is already present in the database.' }
-        format.json { render json: @pattern.errors, status: :unprocessable_entity }
+        format.html { redirect_to '/patterns/new', notice: 'Unknown parser for '+ @unknown }
       end
     end
   end
