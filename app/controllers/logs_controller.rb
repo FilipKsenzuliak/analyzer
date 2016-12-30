@@ -6,7 +6,11 @@ class LogsController < ApplicationController
   # GET /logs
   # GET /logs.json
   def index
-    @logs = Log.all
+    if params[:search]
+      @logs = Log.search(params[:search]) 
+    else
+      @logs = Log.all
+    end
   end
 
   # GET /logs/1

@@ -1,13 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Logs</h1>
+<h3>Processed logs</h3>
 
-<table>
+  <%= form_tag("/logs", method: "get") do %>
+    <div id="search-input">
+      <%= text_field_tag :search, params[:search], placeholder: 'search', class: "form-control left" %>
+    </div>
+    <%= submit_tag "Search", class: "btn btn-default left", id: "search-submit" %>
+  <% end %>
+
+<table class='table table-striped'>
   <thead>
     <tr>
-      <th>Text</th>
-      <th>Label</th>
-      <th colspan="3"></th>
+      <th colspan='2'></th>
     </tr>
   </thead>
 
@@ -15,15 +20,9 @@
     <% @logs.each do |log| %>
       <tr>
         <td><%= log.text %></td>
-        <td><%= log.label %></td>
         <td><%= link_to 'Show', log %></td>
-        <td><%= link_to 'Edit', edit_log_path(log) %></td>
-        <td><%= link_to 'Destroy', log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Log', new_log_path %>

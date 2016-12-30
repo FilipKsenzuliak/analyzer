@@ -29,6 +29,15 @@
 
   <div id="divider"></div>
 
+    <div id="edit-tag">
+      <strong>TAGS:</strong>
+      <% @pattern.tags.each do |tag| %>
+        <div class="tag"><%= tag.text %></div>
+      <% end %>
+    </div>
+
+  <div id="divider"></div>
+
   <table class="table table-striped">
     <thead>
       <tr>

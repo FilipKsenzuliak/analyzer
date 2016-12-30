@@ -24,6 +24,7 @@
         <% if current_user.role == 'admin' %>
           <li><a href="/users">Users</a></li>
         <% end %>
+        <li><a href="/logs">Logs</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a>Welcome: <strong><%= current_user.name %></strong></a></li>

@@ -1,14 +1,24 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Text:</strong>
-  <%= @log.text %>
+  <strong><%= @log.text %></strong>
 </p>
-
 <p>
-  <strong>Label:</strong>
-  <%= @log.label %>
+	<% pattern = Pattern.find_by_id(@log.pattern_id) %>
+	<div id="edit-tag">
+    <strong>TAGS:</strong>
+    <% if pattern != nil %>
+	    <% pattern.tags.each do |tag| %>
+	      <div class="tag"><%= tag.text %></div>
+	    <% end %>
+    <% end %>
+  </div>
+</p>
+<p>
+	<strong>SOURCE:</strong>
+	<% if pattern != nil %>
+		<%= pattern.source %>
+	<% end %>
 </p>
 
-<%= link_to 'Edit', edit_log_path(@log) %> |
 <%= link_to 'Back', logs_path %>
