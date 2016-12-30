@@ -1,5 +1,6 @@
 class ParsersController < ApplicationController
 	require 'grok-pure'
+  require 'csv'
   respond_to :json, :html, :js
   add_flash_types :success, :warn
   autocomplete :parser, :name, :full => true
@@ -154,6 +155,23 @@ class ParsersController < ApplicationController
     file = "parsers.json"
     File.open(file, "w"){ |f| f << data }
     send_file( file )
+  end
+
+  def import
+    uploaded_file = params[:file]
+    file_content = uploaded_file.read
+    parsers = JSON.parse(file_content)
+
+    parsers.each do |p|
+      parser = Parser.new(name: p[0],
+                          expression: p[1]["expression"],
+                          blacklist: p[1]["blacklist"],
+                          source_group: p[1]["source_group"]
+                          )
+      next unless parser.save
+    end
+
+    redirect_to '/parsers'
   end
 
   private

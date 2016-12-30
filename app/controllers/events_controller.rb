@@ -7,11 +7,11 @@ class EventsController < ApplicationController
 	def index
     @pattern = session[:pattern]
     @log = session[:log]
-    pattern_source = Pattern.where("text LIKE :search", search: "#{session[:pattern]}%").first 
-    if pattern_source == nil
+    @pattern_source = Pattern.where("text LIKE :search", search: "#{session[:pattern]}%").first 
+    if @pattern_source == nil
       @warning = "WARNING: log pattern is not recognized. You won't be able to save event pattern! (To resolve this, process valid log pattern)"
     else
-      @source = pattern_source.source 
+      @source = @pattern_source.source 
     end
     @data = []
 
@@ -28,8 +28,8 @@ class EventsController < ApplicationController
 
       check = {}
 
-      if pattern_source.try(:event_pattern)
-        event =  pattern_source.event_pattern.split(' ') 
+      if @pattern_source.try(:event_pattern)
+        event =  @pattern_source.event_pattern.split(' ') 
       else 
         event = []
       end
@@ -48,7 +48,7 @@ class EventsController < ApplicationController
           end
         end
         name = part
-        name = event[i] if pattern_source.try(:event_pattern)
+        name = event[i] if @pattern_source.try(:event_pattern)
         @data << { name: part, text: capture, event: name }
       end
     end
@@ -76,17 +76,6 @@ class EventsController < ApplicationController
     else
       @events = Event.all
     end
-
-    # CSV.foreach(File.path(Rails.root.join('public', 'patterns', 'taxonomy.csv'))) do |row|
-    #   event_data = row[0].split(';')
-    #   event = Event.new(
-    #                     :tag => event_data[0],
-    #                     :clasification => event_data[1],
-    #                     :description => event_data[2],
-    #                     :original => true 
-    #                    )
-    #   event.save
-    # end
   end # def taxonomy
 
   def save_synonym
@@ -111,6 +100,22 @@ class EventsController < ApplicationController
 
     data = {:message => "Success"}
     render :json => data, :status => :ok
+  end
+
+  def save_tag
+    pattern = Pattern.where("text LIKE :search", search: "#{session[:pattern]}%").first
+
+    tag = Tag.new(text: params[pattern.text][:tag], pattern_id: pattern.id)
+    respond_to do |format|
+      if tag.save
+        format.html { redirect_to '/event', notice: 'Tag was successfully created.' }
+        format.json { render :show, status: :created, location: @event }
+      else
+        format.js
+        format.html { redirect_to '/event', notice: 'Tag is already present in the database.' }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def show

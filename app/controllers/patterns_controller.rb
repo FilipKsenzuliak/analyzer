@@ -62,6 +62,34 @@ class PatternsController < ApplicationController
     end
   end
 
+  def export
+    patterns = {}
+    Pattern.all.each do |pattern|
+      patterns[pattern.text] = {
+                              source: pattern.source,
+                              event_pattern: pattern.event_pattern
+                             }
+    end
+    data = JSON.pretty_generate(patterns)
+
+    file = "patterns.json"
+    File.open(file, "w"){ |f| f << data }
+    send_file( file )
+  end
+
+  def import
+    uploaded_file = params[:file]
+    file_content = uploaded_file.read
+    patterns = JSON.parse(file_content)
+
+    patterns.each do |p|
+      pattern = Pattern.new(text: p[0], source: p[1]["source"], event_pattern: p[1]["event_pattern"])
+      next unless pattern.save
+    end
+
+    redirect_to '/patterns'
+  end
+
   def create_with_log
     @pattern = Pattern.new(pattern_params)
     parsers = Parser.all

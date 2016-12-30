@@ -7,6 +7,14 @@
     </div>
     <%= submit_tag "Search", class: "btn btn-default left", id: "search-submit" %>
   <% end %>
+
+  <%= button_to 'Export', '/export_patterns', class: "btn btn-primary right export", :method => :get %>
+  
+
+  <%= form_tag '/import_patterns', class: "import right", :multipart => true do %>
+   <%= file_field_tag :file, class: "btn btn-default left" %>
+   <%= submit_tag 'Import file', class: "btn btn-primary left" %>
+  <% end %>
 </div>
 
 <p id="notice"><%= notice %></p>

@@ -10,7 +10,6 @@ window.event_pattern = ->
   values = []
   $('.table tr td input').each ->
     values.push($(this).val())
-  console.log values.join(' ')
   $.ajax '/save_event' , 
   type: "POST",
   dataType: "JSON",
