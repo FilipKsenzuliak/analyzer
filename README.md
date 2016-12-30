@@ -1,15 +1,13 @@
 == README
 
-This application serves as helping tool for log parsing.
-
-
+This application serves as helping tool for log management. Allows user to parse unknown log format and helps him create pattern for this format. Also allows to add more information to the log. Tool provides managment for parsers, patterns and taxonomy.
 
 To run this application you need: <br />
 ruby (used version): 2.1.2 -> <em>sudo apt-get install ruby</em> <br />
 rails (used version): 4.2.6 -> <em>sudo apt-get install rails</em> <br />
 You can either download used versions or change them in <em>Gemfile</em> <br />
-postgreSQL <br />
-gem 'bundler' -> installed with <em>gem install bundler</em> <br />
+postgreSQL -> <em>sudo apt-get install postgresql</em> <br />
+gem 'bundler' -> <em>gem install bundler</em> <br />
 
 1. clone current repository or download it in form of a .zip file.
 2. go to the root direcotry and download all dependencies (possible with command): <br />
@@ -20,5 +18,10 @@ gem 'bundler' -> installed with <em>gem install bundler</em> <br />
    <em>rake db:setup</em>
 5. run the server: <br />
    <em>rails s</em>
+   
 <br />
 default port is 3000.
+
+For creating admin user go to postgreSQL database and simply insert him:
+INSERT INTO users (name, email, role, password) 
+     VALUES ('name', 'email', 'admin', crypt('password', gen_salt('bf'));
