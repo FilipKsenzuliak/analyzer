@@ -22,6 +22,6 @@ gem 'bundler' -> <em>gem install bundler</em> <br />
 <br />
 default port is 3000.
 
-For creating admin user go to postgreSQL database and simply insert him:
+For creating admin user go to postgreSQL database and simply insert him: <br />
 INSERT INTO users (name, email, role, password) 
      VALUES ('name', 'email', 'admin', crypt('password', gen_salt('bf'));
