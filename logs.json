@@ -1,0 +1,440 @@
+[
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Sep 19 08:26:10 host CEF:0|security|threatmanager|1.0|100|worm successfully stopped|10|src=10.0.0.1 dst=2.1.2.2 spt=1232 ",
+    "pattern": "",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.2",
+    "pattern": "%{DATESTAMP} %{WORD} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.3",
+    "pattern": "%{DATESTAMP} %{WORD} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.4",
+    "pattern": "%{DATESTAMP} %{WORD} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.5",
+    "pattern": "%{DATESTAMP} %{WORD} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.6",
+    "pattern": "%{DATESTAMP} %{WORD} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.7",
+    "pattern": "%{DATESTAMP} %{WORD} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USERNAME} %{PID} %{IP}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USERNAME} %{PID} %{IP}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USERNAME} %{PID} %{IP}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USERNAME} %{PID} %{IP}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USERNAME} %{PID} %{IP}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Started GET /sidekiq/stats for ::1 at 2016-09-05 19:56:45 +0200",
+    "pattern": "%{DATA} %{URIPATHPARAM} %{DATA} %{DATESTAMP} %{ISO8601_TIMEZONE}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Started GET /sidekiq/stats for ::1 at 2016-09-05 19:56:45 +0200",
+    "pattern": "%{DATA} %{URIPATHPARAM} %{DATA} %{DATESTAMP} %{ISO8601_TIMEZONE}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Started GET /sidekiq/stats for ::1 at 2016-09-05 19:56:45 +0200",
+    "pattern": "%{DATA} %{URIPATHPARAM} %{DATA} %{DATESTAMP} %{ISO8601_TIMEZONE}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Started GET /sidekiq/stats for ::1 at 2016-09-05 19:56:45 +0200",
+    "pattern": "%{DATA} %{URIPATHPARAM} %{DATA} %{DATESTAMP} %{ISO8601_TIMEZONE}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Started GET /sidekiq/stats for ::1 at 2016-09-05 19:56:45 +0200",
+    "pattern": "%{DATA} %{URIPATHPARAM} %{DATA} %{DATESTAMP} %{ISO8601_TIMEZONE}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1 a dalsia 193.232.211.122",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP} %{DATA} %{IP}",
+    "source": "myapp",
+    "tags": [
+      "network",
+      "test",
+      "myapp"
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1 a dalsia 193.232.211.122",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP} %{DATA} %{IP}",
+    "source": "myapp",
+    "tags": [
+      "network",
+      "test",
+      "myapp"
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1 a dalsia 193.232.211.122",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP} %{DATA} %{IP}",
+    "source": "myapp",
+    "tags": [
+      "network",
+      "test",
+      "myapp"
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1 a dalsia 193.232.211.122",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP} %{DATA} %{IP}",
+    "source": "myapp",
+    "tags": [
+      "network",
+      "test",
+      "myapp"
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1 a dalsia 193.232.211.122",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP} %{DATA} %{IP}",
+    "source": "myapp",
+    "tags": [
+      "network",
+      "test",
+      "myapp"
+    ]
+  },
+  {
+    "log_text": "15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{TIME} %{USER} %{PID} %{IP}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{TIME} %{USER} %{PID} %{IP}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Dec 17 11:49:53 isenpsn1 CISE_Failed_Attempts 0001526782 1 0 2014-12-17 11:49:53.782 +01:00 0122216615 5400 NOTICE Failed-Attempt: Authentication failed",
+    "pattern": "%{SYSLOGTIMESTAMP} %{SMT} %{DATESTAMP} %{ISO8601_TIMEZONE} %{NUMBER} %{NUMBER} %{SMT}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Dec 17 11:49:53 isenpsn1 CISE_Failed_Attempts 0001526782 1 0 2014-12-17 11:49:53.782 +01:00 0122216615 5400 NOTICE Failed-Attempt: Authentication failed",
+    "pattern": "%{SYSLOGTIMESTAMP} %{SMT} %{DATESTAMP} %{ISO8601_TIMEZONE} %{NUMBER} %{NUMBER} %{SMT}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Dec 17 11:49:53 isenpsn1 CISE_Failed_Attempts 0001526782 1 0 2014-12-17 11:49:53.782 +01:00 0122216615 5400 NOTICE Failed-Attempt: Authentication failed",
+    "pattern": "%{SYSLOGTIMESTAMP} %{SMT} %{DATESTAMP} %{ISO8601_TIMEZONE} %{NUMBER} %{NUMBER} %{SMT}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Dec 17 11:49:53 isenpsn1 CISE_Failed_Attempts 0001526782 1 0 2014-12-17 11:49:53.782 +01:00 0122216615 5400 NOTICE Failed-Attempt: Authentication failed",
+    "pattern": "%{SYSLOGTIMESTAMP} %{SMT} %{DATESTAMP} %{ISO8601_TIMEZONE} %{NUMBER} %{NUMBER} %{SMT}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "123.123.123.123 124.124.124.124 125.125.125.125",
+    "pattern": "%{TESTO} %{TESTO2} %{TESTO3}",
+    "source": "test",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "123.123.123.123 124.124.124.124 125.125.125.125",
+    "pattern": "%{TESTO} %{TESTO2} %{TESTO3}",
+    "source": "test",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "123.123.123.123 124.124.124.124 125.125.125.125",
+    "pattern": "%{TESTO} %{TESTO2} %{TESTO3}",
+    "source": "test",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "123.123.123.123 124.124.124.124 125.125.125.125",
+    "pattern": "%{TESTO} %{TESTO2} %{TESTO3}",
+    "source": "test",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "123.123.123.123 124.124.124.124 125.125.125.125 access into success",
+    "pattern": "%{TESTO} %{TESTO2} %{TESTO3} %{WORD} %{WORD} %{WORD}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "123.123.123.123 124.124.124.124 125.125.125.125 access into success",
+    "pattern": "%{TESTO} %{TESTO2} %{TESTO3} %{WORD} %{WORD} %{WORD}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Feb 28 07:46:12 hostname nieco[1234]: ideme dalej",
+    "pattern": "%{SYSLOGTIMESTAMP} %{HOST_PID} %{GREEDYDATA}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Feb 28 07:46:12 hostname nieco[1234]: ideme dalej",
+    "pattern": "%{SYSLOGTIMESTAMP} %{HOST_PID} %{GREEDYDATA}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Feb 28 07:46:12 hostname nieco[1234]: ideme dalej",
+    "pattern": "%{SYSLOGTIMESTAMP} %{HOST_PID} %{GREEDYDATA}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Feb 28 07:46:12 hostname nieco[1234]: ideme dalej",
+    "pattern": "%{SYSLOGTIMESTAMP} %{HOST_PID} %{GREEDYDATA}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP}",
+    "source": "myapp",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "Dec 17 11:49:53 isenpsn1 CISE_Failed_Attempts 0001526782 1 0 2014-12-17 11:49:53.782 +01:00 0122216615 5400 NOTICE Failed-Attempt: Authentication failed",
+    "pattern": "%{SYSLOGTIMESTAMP} %{SMT} %{DATESTAMP} %{ISO8601_TIMEZONE} %{NUMBER} %{NUMBER} %{SMT}",
+    "source": "",
+    "tags": [
+
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1 a success 192.111.111.111",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP} %{DATA} %{IP}",
+    "source": "myapp",
+    "tags": [
+      "network",
+      "test",
+      "myapp"
+    ]
+  },
+  {
+    "log_text": "2016-10-21 15:06:02 xksenzu MyProgram[13163]: 192.168.0.1 a success 192.111.111.111",
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP} %{DATA} %{IP}",
+    "source": "myapp",
+    "tags": [
+      "network",
+      "test",
+      "myapp"
+    ]
+  },
+  {
+    "log_text": "Dec 17 11:49:53 isenpsn1 CISE_Failed_Attempts 0001526782 1 0 2014-12-17 11:49:53.782 +01:00 0122216615 5400 NOTICE Failed-Attempt: Authentication failed",
+    "pattern": "%{SYSLOGTIMESTAMP} %{SMT} %{DATESTAMP} %{ISO8601_TIMEZONE} %{NUMBER} %{NUMBER} %{SMT}",
+    "source": "",
+    "tags": [
+
+    ]
+  }
+]

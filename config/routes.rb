@@ -55,6 +55,9 @@ Rails.application.routes.draw do
   get "patterns/autocomplete_pattern_text"
   get "/export_patterns" => "patterns#export"
   post "/import_patterns" => "patterns#import"
+
+  # logs
+  get "/export_logs" => "logs#export"
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

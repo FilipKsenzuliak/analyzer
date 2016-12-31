@@ -1,6 +1,7 @@
 class ParsersController < ApplicationController
 	require 'grok-pure'
   require 'csv'
+  require 'pp'
   respond_to :json, :html, :js
   add_flash_types :success, :warn
   autocomplete :parser, :name, :full => true
@@ -142,13 +143,14 @@ class ParsersController < ApplicationController
   end
 
   def export
-    parsers = {}
+    parsers = []
     Parser.all.each do |parser|
-      parsers[parser.name] = {
-                              expression: parser.expression,
-                              blacklist: parser.blacklist,
-                              source_group: parser.source_group
-                             }
+      parsers << {
+                   name: parser.name,
+                   expression: parser.expression,
+                   blacklist: parser.blacklist,
+                   source_group: parser.source_group
+                 }
     end
     data = JSON.pretty_generate(parsers)
 
@@ -163,10 +165,11 @@ class ParsersController < ApplicationController
     parsers = JSON.parse(file_content)
 
     parsers.each do |p|
-      parser = Parser.new(name: p[0],
-                          expression: p[1]["expression"],
-                          blacklist: p[1]["blacklist"],
-                          source_group: p[1]["source_group"]
+      parser = Parser.new(
+                          name: p['name'],
+                          expression: p["expression"],
+                          blacklist: p["blacklist"],
+                          source_group: p["source_group"]
                           )
       next unless parser.save
     end

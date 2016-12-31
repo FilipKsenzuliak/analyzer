@@ -1,42 +1,52 @@
-{
-  "%{DATESTAMP} %{USERNAME} %{PID} %{IP}": {
+[
+  {
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP} %{DATA} %{IP}",
+    "source": "myapp",
+    "event_pattern": "DATESTAMP USER PROGRAM_ID SRC_IP EVENT DEST_IP"
+  },
+  {
+    "pattern": "%{DATESTAMP} %{USERNAME} %{PID} %{IP}",
     "source": "",
     "event_pattern": null
   },
-  "%{DATA} %{URIPATHPARAM} %{DATA} %{DATESTAMP} %{ISO8601_TIMEZONE}": {
+  {
+    "pattern": "%{DATA} %{URIPATHPARAM} %{DATA} %{DATESTAMP} %{ISO8601_TIMEZONE}",
     "source": "",
     "event_pattern": null
   },
-  "%{TIME} %{USER} %{PID} %{IP}": {
+  {
+    "pattern": "%{TIME} %{USER} %{PID} %{IP}",
     "source": "",
     "event_pattern": null
   },
-  "%{SYSLOGTIMESTAMP} %{SMT} %{DATESTAMP} %{ISO8601_TIMEZONE} %{NUMBER} %{NUMBER} %{SMT}": {
+  {
+    "pattern": "%{SYSLOGTIMESTAMP} %{SMT} %{DATESTAMP} %{ISO8601_TIMEZONE} %{NUMBER} %{NUMBER} %{SMT}",
     "source": "",
     "event_pattern": null
   },
-  "%{DATESTAMP} %{WORD} %{PID} %{IP}": {
+  {
+    "pattern": "%{DATESTAMP} %{WORD} %{PID} %{IP}",
     "source": "myapp",
     "event_pattern": null
   },
-  "%{TESTO} %{TESTO2} %{TESTO3}": {
+  {
+    "pattern": "%{TESTO} %{TESTO2} %{TESTO3}",
     "source": "test",
     "event_pattern": null
   },
-  "%{TESTO} %{TESTO2} %{TESTO3} %{WORD} %{WORD} %{WORD}": {
+  {
+    "pattern": "%{TESTO} %{TESTO2} %{TESTO3} %{WORD} %{WORD} %{WORD}",
     "source": "",
     "event_pattern": null
   },
-  "%{DATESTAMP} %{USER} %{PID} %{IP}": {
+  {
+    "pattern": "%{DATESTAMP} %{USER} %{PID} %{IP}",
     "source": "myapp",
     "event_pattern": "SYSLOGTIMESTAMP HOST_PID GREEDYDATA"
   },
-  "%{SYSLOGTIMESTAMP} %{HOST_PID} %{GREEDYDATA}": {
+  {
+    "pattern": "%{SYSLOGTIMESTAMP} %{HOST_PID} %{GREEDYDATA}",
     "source": "",
     "event_pattern": "SYSLOGTIMESTAMP HOST_PIDO DEJTO"
-  },
-  "%{DATESTAMP} %{USER} %{PID} %{IP} %{DATA} %{IP}": {
-    "source": "",
-    "event_pattern": "DATESTAMP USER PROGRAM_ID SRC_IP EVENT DEST_IP"
   }
-}
+]

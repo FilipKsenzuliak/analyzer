@@ -9,6 +9,8 @@
     <%= submit_tag "Search", class: "btn btn-default left", id: "search-submit" %>
   <% end %>
 
+  <%= button_to 'Export', '/export_logs', class: "btn btn-primary right export", :method => :get %>
+
 <table class='table table-striped'>
   <thead>
     <tr>

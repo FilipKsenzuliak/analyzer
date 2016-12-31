@@ -81,6 +81,32 @@ class LogsController < ApplicationController
     end
   end
 
+  def export
+    logs = []
+    Log.all.each do |log|
+      pattern = Pattern.find_by_id(log.pattern_id)
+      text = source = ''
+      tags = []
+      unless pattern == nil
+        text = pattern.text
+        source = pattern.source
+        pattern.tags.map {|x| tags.push(x.text)}
+      end
+      
+      logs << {
+                log_text: log.text,
+                pattern: text,
+                source: source,
+                tags: tags
+              }
+    end
+    data = JSON.pretty_generate(logs)
+
+    file = "logs.json"
+    File.open(file, "w"){ |f| f << data }
+    send_file( file )
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_log

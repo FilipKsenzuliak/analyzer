@@ -63,12 +63,13 @@ class PatternsController < ApplicationController
   end
 
   def export
-    patterns = {}
+    patterns = []
     Pattern.all.each do |pattern|
-      patterns[pattern.text] = {
-                              source: pattern.source,
-                              event_pattern: pattern.event_pattern
-                             }
+      patterns << {
+                    pattern: pattern.text,
+                    source: pattern.source,
+                    event_pattern: pattern.event_pattern
+                  }
     end
     data = JSON.pretty_generate(patterns)
 
@@ -83,7 +84,11 @@ class PatternsController < ApplicationController
     patterns = JSON.parse(file_content)
 
     patterns.each do |p|
-      pattern = Pattern.new(text: p[0], source: p[1]["source"], event_pattern: p[1]["event_pattern"])
+      pattern = Pattern.new(
+                            text: p['pattern'],
+                            source: p["source"],
+                            event_pattern: p["event_pattern"]
+                            )
       next unless pattern.save
     end
 

@@ -1,327 +1,410 @@
-{
-  "SYSLOGFACILITY": {
+[
+  {
+    "name": "SYSLOGFACILITY",
     "expression": "<%{POSINT:facility}.%{POSINT:priority}>",
     "blacklist": false,
     "source_group": "syslog"
   },
-  "SYSLOGHOST": {
+  {
+    "name": "SYSLOGHOST",
     "expression": "%{IPORHOST}",
     "blacklist": false,
     "source_group": "syslog"
   },
-  "SYSLOGPROG": {
+  {
+    "name": "SYSLOGPROG",
     "expression": "%{PROG:program}(?:\\[%{POSINT:pid}\\])?",
     "blacklist": false,
     "source_group": "syslog"
   },
-  "SYSLOGTIMESTAMP": {
+  {
+    "name": "SYSLOGTIMESTAMP",
     "expression": "%{MONTH} +%{MONTHDAY} %{TIME}",
     "blacklist": false,
     "source_group": "syslog"
   },
-  "UNIXPATH": {
+  {
+    "name": "UNIXPATH",
     "expression": "(?:/(?:[\\w_%!$@:.,-]+|\\\\.)*)+",
     "blacklist": false,
     "source_group": "unix"
   },
-  "WINDOWSMAC": {
+  {
+    "name": "WINDOWSMAC",
     "expression": "(?:(?:[A-Fa-f0-9]{2}-){5}[A-Fa-f0-9]{2})",
     "blacklist": false,
     "source_group": "windows"
   },
-  "WINPATH": {
+  {
+    "name": "WINPATH",
     "expression": "(?:[A-Za-z]+:|\\\\)(?:\\\\[^\\\\?*]*)+",
     "blacklist": false,
     "source_group": "windows"
   },
-  "USERNAME": {
+  {
+    "name": "USERNAME",
     "expression": "[a-zA-Z0-9_-]+",
     "blacklist": false,
     "source_group": null
   },
-  "USER": {
+  {
+    "name": "USER",
     "expression": "%{USERNAME}",
     "blacklist": false,
     "source_group": null
   },
-  "INT": {
+  {
+    "name": "INT",
     "expression": "(?:[+-]?(?:[0-9]+))",
     "blacklist": false,
     "source_group": null
   },
-  "BASE10NUM": {
+  {
+    "name": "BASE10NUM",
     "expression": "(?<![0-9.+-])(?>[+-]?(?:(?:[0-9]+(?:\\.[0-9]+)?)|(?:\\.[0-9]+)))",
     "blacklist": false,
     "source_group": null
   },
-  "NUMBER": {
+  {
+    "name": "NUMBER",
     "expression": "(?:%{BASE10NUM})",
     "blacklist": false,
     "source_group": null
   },
-  "BASE16NUM": {
+  {
+    "name": "BASE16NUM",
     "expression": "(?<![0-9A-Fa-f])(?:[+-]?(?:0x)?(?:[0-9A-Fa-f]+))",
     "blacklist": false,
     "source_group": null
   },
-  "BASE16FLOAT": {
+  {
+    "name": "BASE16FLOAT",
     "expression": "\\b(?<![0-9A-Fa-f.])(?:[+-]?(?:0x)?(?:(?:[0-9A-Fa-f]+(?:\\.[0-9A-Fa-f]*)?)|(?:\\.[0-9A-Fa-f]+)))\\b",
     "blacklist": false,
     "source_group": null
   },
-  "POSINT": {
+  {
+    "name": "POSINT",
     "expression": "\\b(?:[0-9]+)\\b",
     "blacklist": false,
     "source_group": null
   },
-  "WORD": {
+  {
+    "name": "WORD",
     "expression": "\\b\\w+\\b",
     "blacklist": false,
     "source_group": null
   },
-  "NOTSPACE": {
+  {
+    "name": "NOTSPACE",
     "expression": "\\S+",
     "blacklist": false,
     "source_group": null
   },
-  "DATA": {
-    "expression": ".*?",
-    "blacklist": false,
-    "source_group": null
-  },
-  "GREEDYDATA": {
+  {
+    "name": "GREEDYDATA",
     "expression": ".*",
     "blacklist": false,
     "source_group": null
   },
-  "MAC": {
+  {
+    "name": "MAC",
     "expression": "(?:%{CISCOMAC}|%{WINDOWSMAC}|%{COMMONMAC})",
     "blacklist": false,
     "source_group": null
   },
-  "CISCOMAC": {
+  {
+    "name": "CISCOMAC",
     "expression": "(?:(?:[A-Fa-f0-9]{4}\\.){2}[A-Fa-f0-9]{4})",
     "blacklist": false,
     "source_group": null
   },
-  "COMMONMAC": {
+  {
+    "name": "COMMONMAC",
     "expression": "(?:(?:[A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2})",
     "blacklist": false,
     "source_group": null
   },
-  "IP": {
+  {
+    "name": "IP",
     "expression": "(?<![0-9])(?:(?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2}))(?![0-9])",
     "blacklist": false,
     "source_group": null
   },
-  "HOSTNAME": {
+  {
+    "name": "HOSTNAME",
     "expression": "\\b(?:[0-9A-Za-z][0-9A-Za-z-]{0,62})(?:\\.(?:[0-9A-Za-z][0-9A-Za-z-]{0,62}))*(\\.?|\\b)",
     "blacklist": false,
     "source_group": null
   },
-  "HOST": {
+  {
+    "name": "HOST",
     "expression": "%{HOSTNAME}",
     "blacklist": false,
     "source_group": null
   },
-  "IPORHOST": {
+  {
+    "name": "IPORHOST",
     "expression": "(?:%{HOSTNAME}|%{IP})",
     "blacklist": false,
     "source_group": null
   },
-  "HOSTPORT": {
+  {
+    "name": "HOSTPORT",
     "expression": "(?:%{IPORHOST=~/\\./}:%{POSINT})",
     "blacklist": false,
     "source_group": null
   },
-  "PATH": {
+  {
+    "name": "PATH",
     "expression": "(?:%{UNIXPATH}|%{WINPATH})",
     "blacklist": false,
     "source_group": null
   },
-  "LINUXTTY": {
+  {
+    "name": "LINUXTTY",
     "expression": "(?:/dev/pts/%{POSINT})",
     "blacklist": false,
     "source_group": null
   },
-  "BSDTTY": {
+  {
+    "name": "BSDTTY",
     "expression": "(?:/dev/tty[pq][a-z0-9])",
     "blacklist": false,
     "source_group": null
   },
-  "TTY": {
+  {
+    "name": "TTY",
     "expression": "(?:%{BSDTTY}|%{LINUXTTY})",
     "blacklist": false,
     "source_group": null
   },
-  "URIPROTO": {
+  {
+    "name": "URIPROTO",
     "expression": "[A-Za-z]+(\\+[A-Za-z+]+)?",
     "blacklist": false,
     "source_group": null
   },
-  "URIHOST": {
+  {
+    "name": "URIHOST",
     "expression": "%{IPORHOST}(?::%{POSINT:port})?",
     "blacklist": false,
     "source_group": null
   },
-  "URIPATH": {
+  {
+    "name": "URIPATH",
     "expression": "(?:/[A-Za-z0-9$.+!*'(),~:#%_-]*)+",
     "blacklist": false,
     "source_group": null
   },
-  "URIPARAM": {
+  {
+    "name": "URIPARAM",
     "expression": "\\?[A-Za-z0-9$.+!*'(),~#%&/=:;_-]*",
     "blacklist": false,
     "source_group": null
   },
-  "URIPATHPARAM": {
+  {
+    "name": "URIPATHPARAM",
     "expression": "%{URIPATH}(?:%{URIPARAM})?",
     "blacklist": false,
     "source_group": null
   },
-  "URI": {
+  {
+    "name": "URI",
     "expression": "%{URIPROTO}://(?:%{USER}(?::[^@]*)?@)?(?:%{URIHOST})?(?:%{URIPATHPARAM})?",
     "blacklist": false,
     "source_group": null
   },
-  "MONTH": {
+  {
+    "name": "MONTH",
     "expression": "\\b(?:[Jj]an(?:uary)?|[Ff]eb(?:ruary)?|[Mm]ar(?:ch)?|[Aa]pr(?:il)?|[Mm]ay|[Jj]un(?:e)?|[Jj]ul(?:y)?|[Aa]ug(?:ust)?|[Ss]ep(?:tember)?|[Oo]ct(?:ober)?|[Nn]ov(?:ember)?|[Dd]ec(?:ember)?)\\b",
     "blacklist": false,
     "source_group": null
   },
-  "MONTHNUM": {
+  {
+    "name": "MONTHNUM",
     "expression": "(?:0?[1-9]|1[0-2])",
     "blacklist": false,
     "source_group": null
   },
-  "MONTHDAY": {
+  {
+    "name": "MONTHDAY",
     "expression": "(?:3[01]|[1-2]?[0-9]|0?[1-9])",
     "blacklist": false,
     "source_group": null
   },
-  "DAY": {
+  {
+    "name": "DAY",
     "expression": "(?:[Mm]on(?:day)?|[Tt]ue(?:sday)?|[Ww]ed(?:nesday)?|[Tt]hu(?:rsday)?|[Ff]ri(?:day)?|[Ss]at(?:urday)?|[Ss]un(?:day)?)",
     "blacklist": false,
     "source_group": null
   },
-  "YEAR": {
+  {
+    "name": "YEAR",
     "expression": "[0-9]+",
     "blacklist": false,
     "source_group": null
   },
-  "HOUR": {
+  {
+    "name": "HOUR",
     "expression": "(?:2[0123]|[01][0-9])",
     "blacklist": false,
     "source_group": null
   },
-  "MINUTE": {
+  {
+    "name": "MINUTE",
     "expression": "(?:[0-5][0-9])",
     "blacklist": false,
     "source_group": null
   },
-  "SECOND": {
+  {
+    "name": "SECOND",
     "expression": "(?:(?:[0-5][0-9]|60)(?:[.,][0-9]+)?)",
     "blacklist": false,
     "source_group": null
   },
-  "TIME": {
+  {
+    "name": "TIME",
     "expression": "(?<![0-9])%{HOUR}:%{MINUTE}(?::%{SECOND})(?![0-9])",
     "blacklist": false,
     "source_group": null
   },
-  "DATE_EU": {
+  {
+    "name": "DATE_EU",
     "expression": "%{YEAR}[/-]%{MONTHNUM}[/-]%{MONTHDAY}",
     "blacklist": false,
     "source_group": null
   },
-  "DATE_US": {
+  {
+    "name": "DATE_US",
     "expression": "%{MONTHNUM}[/-]%{MONTHDAY}[/-]%{YEAR}",
     "blacklist": false,
     "source_group": null
   },
-  "ISO8601_TIMEZONE": {
+  {
+    "name": "ISO8601_TIMEZONE",
     "expression": "(?:Z|[+-]%{HOUR}(?::?%{MINUTE}))",
     "blacklist": false,
     "source_group": null
   },
-  "ISO8601_SECOND": {
+  {
+    "name": "ISO8601_SECOND",
     "expression": "(?:%{SECOND}|60)",
     "blacklist": false,
     "source_group": null
   },
-  "TIMESTAMP_ISO8601": {
+  {
+    "name": "TIMESTAMP_ISO8601",
     "expression": "%{YEAR}-%{MONTHNUM}-%{MONTHDAY}[T ]%{HOUR}:?%{MINUTE}(?::?%{SECOND})?%{ISO8601_TIMEZONE}?",
     "blacklist": false,
     "source_group": null
   },
-  "DATE": {
+  {
+    "name": "DATE",
     "expression": "%{DATE_EU}|%{DATE_US}",
     "blacklist": false,
     "source_group": null
   },
-  "DATESTAMP": {
-    "expression": "%{DATE}[- T]%{TIME}",
-    "blacklist": false,
-    "source_group": null
-  },
-  "TZ": {
+  {
+    "name": "TZ",
     "expression": "(?:[PMCE][SD]T)",
     "blacklist": false,
     "source_group": null
   },
-  "DATESTAMP_RFC822": {
+  {
+    "name": "DATESTAMP_RFC822",
     "expression": "%{DAY} %{MONTH} %{MONTHDAY} %{YEAR} %{TIME} %{TZ}",
     "blacklist": false,
     "source_group": null
   },
-  "DATESTAMP_OTHER": {
+  {
+    "name": "DATESTAMP_OTHER",
     "expression": "%{DAY} %{MONTH} %{MONTHDAY} %{TIME} %{TZ} %{YEAR}",
     "blacklist": false,
     "source_group": null
   },
-  "PROG": {
+  {
+    "name": "PROG",
     "expression": "(?:[\\w._/-]+)",
     "blacklist": false,
     "source_group": null
   },
-  "HTTPDATE": {
+  {
+    "name": "HTTPDATE",
     "expression": "%{MONTHDAY}/%{MONTH}/%{YEAR}:%{TIME} %{INT:ZONE}",
     "blacklist": false,
     "source_group": null
   },
-  "PID": {
+  {
+    "name": "PID",
     "expression": "(?:\\b\\w+\\[[0-9]+\\]:)",
     "blacklist": false,
     "source_group": null
   },
-  "MESSAGE": {
+  {
+    "name": "MESSAGE",
     "expression": "(?:%{WORD})+",
     "blacklist": false,
     "source_group": null
   },
-  "RFC111": {
+  {
+    "name": "RFC111",
     "expression": "%{DATESTAMP} %{WORD} %{PID} %{IP} %{IP}",
     "blacklist": false,
     "source_group": null
   },
-  "DST": {
+  {
+    "name": "DST",
     "expression": "dst=%{IP}",
     "blacklist": false,
     "source_group": null
   },
-  "SRC": {
+  {
+    "name": "SRC",
     "expression": "src=%{IP}",
     "blacklist": false,
     "source_group": null
   },
-  "SMT": {
+  {
+    "name": "SMT",
     "expression": ".*",
     "blacklist": false,
     "source_group": ""
   },
-  "TEM": {
-    "expression": "",
+  {
+    "name": "TESTO",
+    "expression": "%{IP:nieco}",
     "blacklist": false,
     "source_group": ""
+  },
+  {
+    "name": "TESTO2",
+    "expression": "%{IP:nieco2}",
+    "blacklist": false,
+    "source_group": ""
+  },
+  {
+    "name": "TESTO3",
+    "expression": "%{IP:nieco3}",
+    "blacklist": false,
+    "source_group": ""
+  },
+  {
+    "name": "DATA",
+    "expression": ".*?",
+    "blacklist": false,
+    "source_group": ""
+  },
+  {
+    "name": "DATESTAMP",
+    "expression": "%{DATE}[- T]%{TIME}",
+    "blacklist": false,
+    "source_group": ""
+  },
+  {
+    "name": "HOST_PID",
+    "expression": "hostname %{PID}",
+    "blacklist": null,
+    "source_group": ""
   }
-}
+]
