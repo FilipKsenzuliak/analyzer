@@ -87,14 +87,36 @@ class LogsController < ApplicationController
       pattern = Pattern.find_by_id(log.pattern_id)
       text = source = ''
       tags = []
+
       unless pattern == nil
         text = pattern.text
         source = pattern.source
         pattern.tags.map {|x| tags.push(x.text)}
-      end
       
+      
+        grok = Grok.new
+        parsers = Parser.all
+        parsers.each do |p|
+          grok.add_pattern(p.name, p.expression)
+        end
+
+        grok.compile(pattern.text)
+        m = grok.match(log.text)
+
+        log_data = {}
+        pattern.text.split(' ').each_with_index do |part, i|
+          part.gsub!(/[\{\}\%]/, '')
+            if m
+              capture = m.captures[part].first
+            else
+              capture = '<UNKNOWN>'
+            end
+          log_data[part] = capture
+        end
+      end
+
       logs << {
-                log_text: log.text,
+                log_data: log_data,
                 pattern: text,
                 source: source,
                 tags: tags
